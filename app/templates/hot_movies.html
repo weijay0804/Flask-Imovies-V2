@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+
+{% block head %} 
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/hot_movies.css') }}" rel="stylesheet">
+{% endblock head %}
+
+{% block title %} Imovies - Trend Movies {% endblock title %}
+
+{% block content %}
+    <div class="wrap">
+        <h2> Trend Movies</h2>
+    
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>名稱</td>
+                </tr>
+                <tr>
+                    <td>分類</td>
+                </tr>
+                <tr>
+                    <td>評分</td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="movies_contain">
+
+            </tbody>
+            
+        </table>
+    </div>
+{% endblock content%}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename = 'js/hot_movies.js') }}"></script>
+{% endblock scripts %}

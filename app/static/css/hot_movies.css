@@ -1,0 +1,33 @@
+.wrap {
+    width: 960px;
+    margin: auto;
+    text-align: center;
+}
+table {
+    margin: auto;
+    border: 0;
+    border-collapse: separate;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    padding: 20px 2px;
+    border-spacing:0px 10px;
+    font-size: 17px;
+    font-family: 'Noto Sans TC', sans-serif;
+    
+}
+
+table tbody tr:hover {
+    background-color: rgb(217, 226, 226);
+}
+
+table tbody tr .movie_title {
+    width: 30%;
+}
+
+
+table tbody tr .movie_image {
+    width: 25%;
+}
+
+
