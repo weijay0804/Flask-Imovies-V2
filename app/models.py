@@ -4,7 +4,9 @@
 
 '''
 
+from flask.helpers import send_file
 from app import db
+from flask import url_for
 
 #----自訂函式----
 from .imovies_module import open_file
@@ -30,6 +32,27 @@ class Movies(db.Model):
     image = db.Column(db.String(1000))
     crawler_time = db.Column(db.DateTime)
     source = db.Column(db.String(50))
+
+    def to_json(self):
+        ''' 將資料轉換成 json 格式 '''
+        json_movies = {
+            'url' : url_for('api.get_movies', id = self.id),
+            'imdb_id' : self.imdb_id,
+            'title' : self.title,
+            'original_title' : self.og_title,
+            'rate' : self.rate,
+            'year' : self.year,
+            'grade' : self.grade,
+            'movie_time' : self.time_length,
+            'genre' : self.genre,
+            'description' : self.description,
+            'writers' : self.writers,
+            'starts' : self.starts,
+            'image' : self.image,
+            'source' : self.source,
+        }
+
+        return json_movies
 
     @staticmethod
     def insert_movies_datas(movies_source : str):
