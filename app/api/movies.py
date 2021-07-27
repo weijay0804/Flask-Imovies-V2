@@ -1,5 +1,8 @@
-import re
-import flask
+'''
+
+    movies API
+
+'''
 
 
 from flask import jsonify, request
