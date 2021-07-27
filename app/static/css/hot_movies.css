@@ -30,4 +30,6 @@ table tbody tr .movie_image {
     width: 25%;
 }
 
-
+table tbody tr a {
+    text-align: center;
+}

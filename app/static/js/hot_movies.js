@@ -12,12 +12,36 @@ function print(dataset) {
     dataset['hot_movies'].forEach( (data, index) => {
         let newCard = document.createElement('tr')
         let og_title = data.original_title
+        
         if (og_title === null) {
             og_title = ''
         }
         else {
             og_title = `(${data.original_title})`
         }
+        let rate = data.rate
+        let rate_html = ``
+        if (rate === null) {
+            rate = ''
+            rate_html = `
+                <td class = 'movie_rate'>
+                ${rate}
+                </td>    
+            `
+        }
+
+        else {
+            rate_html = `
+                <td class = 'movie_rate'>
+                <img src="/static/image/star.png" width="7%">
+                ${rate}
+                </td> 
+            `
+
+        }
+
+        
+
 
         newCard.className = 'infoCard'
 
@@ -34,11 +58,11 @@ function print(dataset) {
             <td class = 'movie_type'>${data.genre}</td>
 
 
-            <td class = 'movie_rate'>${data.rate}</td>
+            ${rate_html}
 
 
             <td class = 'imdb_link'>
-                <a href = 'https://www.imdb.com/title/${data.imdb_id}'> IMdb </a>
+                <a href = 'https://www.imdb.com/title/${data.imdb_id}' target='_blank'> IMdb </a>
             </td>
 
             `   
