@@ -5,7 +5,6 @@
 '''
 
 from flask import render_template
-
 #----自訂函式----
 from . import main
 
@@ -18,5 +17,10 @@ def index():
 def trend_movies():
     return render_template('hot_movies.html')
 
-    
+@main.route('/top_movies')
+def top_moives():
+    return render_template('top_movies.html')
 
+
+
+    

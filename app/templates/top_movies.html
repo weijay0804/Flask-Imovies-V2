@@ -1,0 +1,12 @@
+{% extends 'hot_movies.html' %} 
+
+
+
+{% block title %} Imovies - Top 250 Movies {% endblock title %}
+
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename = 'js/top_movies.js') }}"></script>
+{% endblock scripts %}
+
