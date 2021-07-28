@@ -4,12 +4,12 @@ var dataurl = '/api/v1/top_movies'
         xhr.send()
         xhr.onload = function(){
             var dataset = JSON.parse(this.responseText)
-            console.log(dataset['top_movies'][0].title)
+            console.log(dataset['movies'][0].title)
             print(dataset)
         }
 
 function print(dataset) {
-    dataset['top_movies'].forEach( (data, index) => {
+    dataset['movies'].forEach( (data, index) => {
         let newCard = document.createElement('tr')
         let og_title = data.original_title
         
