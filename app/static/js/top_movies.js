@@ -40,8 +40,6 @@ function print(dataset) {
 
         }
 
-        
-
 
         newCard.className = 'infoCard'
 
