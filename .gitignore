@@ -8,3 +8,5 @@ __pycache__
 # 虛擬環境
 Pipfile
 Pipfile.lock
+
+movies_datas

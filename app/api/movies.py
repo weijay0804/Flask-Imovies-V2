@@ -12,7 +12,7 @@ from . import api
 from ..models import Movies
 
 
-@api.route('/movies')
+@api.route('/movies/')
 def get_movies():
     movie_id = request.args.get('id')
     movie_limit = request.args.get('limit')

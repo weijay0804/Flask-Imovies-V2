@@ -4,12 +4,28 @@
 
 '''
 
-from flask.helpers import send_file
 from app import db
 from flask import url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
 
 #----自訂函式----
 from .imovies_module import open_file
+from . import login_manager
+
+
+#建立User與Movie的中間表(電影清單)
+user_movie = db.Table('user_movie',
+                        db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+                        db.Column('movie_id', db.Integer, db.ForeignKey('movies.id'))
+                    )
+
+#建立User與Movie的中間表(已觀看電影清單)
+user_watched_movie = db.Table('user_watched_movie',
+                        db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+                        db.Column('movie_id', db.Integer, db.ForeignKey('movies.id'))
+                    )
 
 
 class Movies(db.Model):
@@ -125,3 +141,52 @@ class Movies(db.Model):
                 db.session.add(movie)
 
         db.session.commit()
+
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(64), unique = True, index = True)
+    email = db.Column(db.String(64), unique = True, index = True)
+    password_hash = db.Column(db.String(128))
+    movies = db.relationship('Movies', secondary = user_movie, 
+                                    backref = db.backref('users', lazy = 'dynamic'),
+                                    lazy = 'dynamic')
+    watched_movies = db.relationship('Movies', secondary = user_watched_movie, 
+                                    backref = db.backref('watched_users', lazy = 'dynamic'),
+                                    lazy = 'dynamic')
+
+    def to_json(self):
+        json_post = {
+            'url' : url_for('api.get_user', id = self.id),
+            'username' : self.username,
+            'movies' : url_for('api.get_user_moives_url', id = self.id),
+            'watched_movies' : url_for('api.get_user_watched_movies_url', id = self.id),
+        }
+
+        return json_post
+
+    '''使用者密碼處理區域開始'''
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    '''使用者密碼處理區域結束'''
+
+ 
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+@login_manager.user_loader
+def load_user(user_id):
+    '''載入使用者的涵式'''
+    return User.query.get(int(user_id))

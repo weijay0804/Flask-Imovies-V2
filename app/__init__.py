@@ -6,12 +6,14 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+from flask_login import LoginManager
 
 #----自訂函式----
 from config import config
 
 
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 
 def create_app(config_name : str) -> Flask:
@@ -22,6 +24,7 @@ def create_app(config_name : str) -> Flask:
     config[config_name].init_app(app)
 
     db.init_app(app)
+    login_manager.init_app(app)
 
     # 註冊 main 藍圖
     from .main import main as main_blueprint
