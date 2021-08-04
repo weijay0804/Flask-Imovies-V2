@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+
+{% block head %} 
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/hot_movies.css') }}" rel="stylesheet">
+{% endblock head %}
+
+
+{% block content %}
+    {% block page_header %}
+    {% endblock page_header %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>名稱</th>
+                    <th>分類</th>
+                    <th>評分</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="movies_contain">
+            </tbody>
+        </table>
+
+    </div>
+{% endblock content%}

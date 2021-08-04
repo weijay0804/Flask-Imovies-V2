@@ -7,6 +7,7 @@
 from flask import jsonify, request
 from ..models import User
 from . import api
+from .authentication import auth
 
 
 @api.route('/users/')
@@ -27,7 +28,9 @@ def get_user(id):
     user = User.query.get_or_404(id)
     return jsonify(user.to_json())
 
+
 @api.route('/users/<int:id>/movies/')
+@auth.login_required
 def get_user_moives_url(id):
     ''' 取得使用者收藏的電影 '''
 

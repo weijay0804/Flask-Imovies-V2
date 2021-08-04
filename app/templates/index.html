@@ -4,21 +4,11 @@
 
 {% block head %} 
     {{ super() }}
-    <link href="{{ url_for('static', filename = 'css/index.css') }}"  rel="stylesheet">
+    <link href="{{ url_for('static', filename = 'css/hot_movies.css') }}"  rel="stylesheet">
 {% endblock head %}
 
 {% block content %} 
-    <h2> Welcome To Imovies </h2>
-
-    <div class="content">
-
-      
-
+    <div class="page-header">
+        <h2>Imovies</h2>
     </div>
-    
-
-{% endblock content %}
-
-{% block scripts %}
-    <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
-{% endblock scripts %}
+{% endblock %}
