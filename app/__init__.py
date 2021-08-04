@@ -30,6 +30,10 @@ def create_app(config_name : str) -> Flask:
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # 註冊 auth 藍圖
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix = '/auth')
+
     #註冊 api 藍圖
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix = '/api/v1')

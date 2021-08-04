@@ -8,5 +8,5 @@ from flask import Blueprint
 
 api = Blueprint('api', __name__)
 
-from . import movies
+from . import movies, user, errors, authentication
 

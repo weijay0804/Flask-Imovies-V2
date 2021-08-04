@@ -52,7 +52,7 @@ class Movies(db.Model):
     def to_json(self):
         ''' 將資料轉換成 json 格式 '''
         json_movies = {
-            'url' : url_for('api.get_movies', id = self.id),
+            'url' : url_for('api.get_movie', id = self.id),
             'imdb_id' : self.imdb_id,
             'title' : self.title,
             'original_title' : self.og_title,
