@@ -6,7 +6,7 @@
 
 
 
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash,jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 
@@ -15,6 +15,20 @@ from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 from . import auth
 from .. import db
 from ..models import User
+
+
+@auth.route('/login2', methods = ['GET', "POST"])
+def login2():
+    if request.method == 'POST':
+        email = request.json.get('email', None)
+        password = request.json.get('password', None)
+        
+        if email == 'minj8343@gmail.com':
+            return jsonify({'message' : '成功'})
+        
+        return jsonify({'message' : '失敗'})
+
+    return render_template('auth/login.html')
 
 
 @auth.route('/login', methods = ['GET', 'POST'])
