@@ -4,13 +4,14 @@
 
 '''
 
+import re
 from flask import jsonify, request
-from ..models import User
+from ..models import User, db
 from . import api
 from .authentication import auth
 
 
-@api.route('/users/')
+@api.route('/users/', methods = ['GET'])
 def get_users():
     ''' 取得所有使用者 '''
 
@@ -20,8 +21,26 @@ def get_users():
         users = User.query.all()
     return jsonify({'users' : [user.to_json() for user in users]})
 
+@api.route('/users/', methods = ['POST'])
+def add_user():
+    ''' 新增使用者 '''
+    
+    email = request.json.get('email')
+    username = request.json.get('username')
+    password = request.json.get('password')
 
-@api.route('/users/<int:id>/')
+    user = User.query.filter_by(email = email).first()
+    if user:
+        return jsonify({'message' : '失敗'})
+    
+    user = User(email = email, username = username, password = password)
+
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'message' : '成功'})
+
+
+@api.route('/users/<int:id>/', methods = ['GET'])
 def get_user(id):
     ''' 依照 user id 取得使用者'''
 
@@ -29,7 +48,9 @@ def get_user(id):
     return jsonify(user.to_json())
 
 
-@api.route('/users/<int:id>/movies/')
+
+
+@api.route('/users/<int:id>/movies/', methods = ['GET'])
 @auth.login_required
 def get_user_moives_url(id):
     ''' 取得使用者收藏的電影 '''
@@ -39,7 +60,7 @@ def get_user_moives_url(id):
 
     return jsonify({'movies' : [movie.to_json() for movie in movies ]})
 
-@api.route('/users/<int:id>/watched_movies/')
+@api.route('/users/<int:id>/watched_movies/', methods = ['GET'])
 def get_user_watched_movies_url(id):
     ''' 取得使用者已觀看電影 '''
 
