@@ -10,6 +10,11 @@ function signUpcheck() {
     var emailStr = document.querySelector('#email').value
     var passwordStr = document.querySelector('#password').value
     var usernameStr = document.querySelector('#username').value
+    if (emailStr.length == 0 | passwordStr.length == 0 | usernameStr.length == 0) {
+        alert('資料不能為空')
+        return false
+    }
+    console.log(emailStr)
     var account = {}
     account.email = emailStr
     account.password = passwordStr
@@ -22,12 +27,16 @@ function signUpcheck() {
     xhr.onload = function() {
         var callbackData = JSON.parse(xhr.responseText)
         var str = callbackData.message
-        if (str == '成功') {
+        if (str == 'email已被使用') {
+            alert('email已被使用')
+        }
+        else if (str == '使用者名稱已被使用') {
+            alert('使用者名稱已被使用')
+        }
+
+        else {
             alert('註冊成功')
             history.back()
-        }
-        else {
-            alert('註冊失敗')
         }
     }
 

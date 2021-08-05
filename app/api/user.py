@@ -24,14 +24,15 @@ def get_users():
 @api.route('/users/', methods = ['POST'])
 def add_user():
     ''' 新增使用者 '''
-    
+
     email = request.json.get('email')
     username = request.json.get('username')
     password = request.json.get('password')
 
-    user = User.query.filter_by(email = email).first()
-    if user:
-        return jsonify({'message' : '失敗'})
+    if User.query.filter_by(email = email).first():
+        return jsonify({'message' : 'email已被使用'})
+    if User.query.filter_by(username = username).first():
+        return jsonify({'message' : '使用者名稱已被使用'})
     
     user = User(email = email, username = username, password = password)
 
