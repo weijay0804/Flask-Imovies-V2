@@ -6,9 +6,11 @@
 
 from flask import g
 from flask_httpauth import HTTPBasicAuth
+
+#----自訂函式----
 from ..models import User
 from .errors import unauthorized, forbidden
-from . import api
+
 
 auth = HTTPBasicAuth() # 初始化
 

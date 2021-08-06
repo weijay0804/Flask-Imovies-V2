@@ -52,7 +52,7 @@ class Movies(db.Model):
     def to_json(self):
         ''' 將資料轉換成 json 格式 '''
         json_movies = {
-            'url' : url_for('api.get_movie', id = self.id),
+            'url' : url_for('api.movie', id = self.id),
             'imdb_id' : self.imdb_id,
             'title' : self.title,
             'original_title' : self.og_title,
@@ -158,10 +158,10 @@ class User(db.Model, UserMixin):
 
     def to_json(self):
         json_post = {
-            'url' : url_for('api.get_user', id = self.id),
+            'url' : url_for('api.user', id = self.id),
             'username' : self.username,
-            'movies' : url_for('api.get_user_moives_url', id = self.id),
-            'watched_movies' : url_for('api.get_user_watched_movies_url', id = self.id),
+            'movies' : url_for('api.user_movies', id = self.id),
+            'watched_movies' : url_for('api.user_watched_movies', id = self.id),
         }
 
         return json_post

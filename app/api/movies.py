@@ -1,59 +1,65 @@
 '''
 
-    movies 的資源端點
+    電影資源節點
 
 '''
 
-from ..models import Movies
 from flask import jsonify,request
-from . import api
+from flask_restful import Resource
+
+#----自訂函式----
+from ..models import Movies as Movies_mod
 
 
-@api.route('/movies/')
-def get_movies():
-    ''' 取得所有電影 '''
+class Movies(Resource):
+    ''' 電影資源 '''
 
-    if request.args.get('limit'):
+    def get(self):
+        ''' 取得所有電影 '''
 
-        movies = Movies.query.limit(request.args.get('limit')).all()
-    else:
+        movies = Movies_mod.query.all()
+        return jsonify({'movies' : [movie.to_json() for movie in movies]})
 
-        movies = Movies.query.all()
-    return jsonify({'movies' : [movie.to_json() for movie in movies]})
+class Movie(Resource):
+    ''' 特定電影資源 '''
+
+    def get(self, id):
+        ''' 根據 movie id 取得特定電影'''
+
+        movie = Movies_mod.query.get_or_404(id)
+        return jsonify(movie.to_json())
 
 
-@api.route('/movies/<int:id>/')
-def get_movie(id):
-    ''' 依照 movie id 取得電影'''
-    movie = Movies.query.get_or_404(id)
-    return jsonify(movie.to_json())
+class Trend_Movies(Resource):
+    ''' 熱門電影資源 '''
 
+    def get(self):
+        ''' 獲得所有熱門電影資源 '''
 
-@api.route('/trend_movies/')
-def get_trend_movies():
-    ''' 取得熱門電影 '''
-
-    if request.args.get('limit'):
-        movies = Movies.query.filter(( Movies.source == 'hot' ) | ( Movies.source == 'top_hot' )).limit(request.args.get('limit')).all()
-    else:
-        movies = Movies.query.filter(( Movies.source == 'hot' ) | ( Movies.source == 'top_hot' )).all()
+        if request.args.get('limit'):
+            movies = Movies_mod.query.filter(( Movies_mod.source == 'hot' ) | ( Movies_mod.source == 'top_hot' )).limit(request.args.get('limit')).all()
+        
+        else:
+            movies = Movies_mod.query.filter(( Movies_mod.source == 'hot' ) | ( Movies_mod.source == 'top_hot' )).all()
     
-    return jsonify({'movies' : [movie.to_json() for movie in movies]})
+        return jsonify({'movies' : [movie.to_json() for movie in movies]})
 
 
-@api.route('/top_movies/')
-def get_top_movies():
-    ''' 取得 TOP 250 電影 '''
 
-    if request.args.get('limit'):
-        movies = Movies.query.filter(( Movies.source == 'top' ) | ( Movies.source == 'top_hot') ).limit(request.args.get('limit')).all()
+
+class Top_Movies(Resource):
+    ''' Top 250 電影資源'''
+
+    def get(self):
+        ''' 取得所有 TOP 250 電影 '''
+
+        if request.args.get('limit'):
+            movies = Movies_mod.query.filter(( Movies_mod.source == 'top' ) | ( Movies_mod.source == 'top_hot' )).limit(request.args.get('limit')).all()
+        
+        else:
+            movies = Movies_mod.query.filter(( Movies_mod.source == 'top' ) | ( Movies_mod.source == 'top_hot' )).all()
     
-    else:
-        movies = Movies.query.filter(( Movies.source == 'top') | ( Movies.source == 'top_hot' )).all()
-    return jsonify({'movies' : [movie.to_json() for movie in movies]})
-
-
-
+        return jsonify({'movies' : [movie.to_json() for movie in movies]})
 
 
 
