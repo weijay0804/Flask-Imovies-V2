@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
+from flask_jwt_extended import JWTManager
 
 #----自訂函式----
 from config import config
@@ -15,6 +16,7 @@ from config import config
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
+jwt = JWTManager()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
@@ -29,6 +31,7 @@ def create_app(config_name : str) -> Flask:
     db.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
+    jwt.init_app(app)
     
     # 註冊 main 藍圖
     from .main import main as main_blueprint

@@ -1,7 +1,7 @@
-var singUpBtn = document.querySelector('#login')
+var singInBtn = document.querySelector('#login-btn')
 
 
-singUpBtn.addEventListener('click', loginUpcheck, false)
+singInBtn.addEventListener('click', loginUpcheck, false)
 
 
 
@@ -31,6 +31,7 @@ function loginUpcheck() {
     
         if (str == '登入失敗') {
             alert('登入失敗')
+            emailStr = ''
         }
     
         else {

@@ -9,6 +9,7 @@ from flask import jsonify, request
 from flask_restful import Resource
 
 #----自訂函式----
+from .authentication import auth
 from ..models import User as User_mod
 from ..models import db
 
@@ -60,7 +61,8 @@ class User(Resource):
 
 class User_Movies(Resource):
     ''' 使用者收藏電影資源 '''
-
+    
+    @auth.login_required
     def get(self, id):
         ''' 取得使用者收藏的電影 '''
 
