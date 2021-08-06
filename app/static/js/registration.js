@@ -47,6 +47,5 @@ function signUpcheck() {
             history.back()
         }
     }
-
 }
 
