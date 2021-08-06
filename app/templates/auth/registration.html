@@ -6,10 +6,33 @@
 {% block title %} Imovie - Registration {% endblock title %} 
 
 {% block content %}
-        <div class="page-header">
-            <h1>Registration</h1>
+    <div class="page-header">
+        <h2> 註冊 </h2>
+    </div>
+    <form action="form.html">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="請輸入信箱">
+            <label for="floatingInput">Email</label>
         </div>
-        <div class="form_content">
-            {{ wtf.quick_form(form) }}
+        <div class="form-floating mb-3">
+            <input type="username" class="form-control" id="username" placeholder="輸入使用者名稱">
+            <label for="floatingInput">使用者名稱</label>
         </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" placeholder="請輸入密碼">
+            <label for="floatingPassword">密碼</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="check_password" placeholder="請輸入密碼">
+            <label for="floatingPassword">確認密碼</label>
+        </div>
+
+        <div class="rbtn">
+            <button type="button" class="btn btn-info" id="signUp">註冊</button>
+        </div>
+    </form>
 {% endblock content %}
+
+{% block scripts %} 
+    <script src="{{ url_for('static', filename = 'js/registration.js') }}"></script>
+{% endblock scripts %}

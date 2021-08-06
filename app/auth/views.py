@@ -17,18 +17,6 @@ from .. import db
 from ..models import User
 
 
-@auth.route('/login2', methods = ['GET', "POST"])
-def login2():
-    if request.method == 'POST':
-        email = request.json.get('email', None)
-        password = request.json.get('password', None)
-        
-        if email == 'minj8343@gmail.com':
-            return jsonify({'message' : '成功'})
-        
-        return jsonify({'message' : '失敗'})
-
-    return render_template('auth/login.html')
 
 
 @auth.route('/login', methods = ['GET', 'POST'])
@@ -64,24 +52,11 @@ def logout():
 
 
 
-@auth.route('/registration', methods = ['GET', 'POST'])
+@auth.route('/registration', methods = ['GET'])
 def registration():
     '''使用者註冊視圖'''
-
-    form = RegistrationForm()           # 定義註冊表單
-
-    if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data,
-                    password = form.password.data)
-
-        db.session.add(user)
-        db.session.commit()
-
-        flash('註冊成功')
-
-        return redirect(url_for('main.index'))
-    
-    return render_template('auth/registration.html', form = form)
+ 
+    return render_template('auth/registration.html')
 
 
 

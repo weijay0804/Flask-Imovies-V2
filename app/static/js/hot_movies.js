@@ -1,4 +1,4 @@
-var dataurl = '/api/v1/trend_movies'
+var dataurl = '/api/v1/trend/'
         var xhr = new XMLHttpRequest()
         xhr.open('GET', dataurl, true)
         xhr.send()

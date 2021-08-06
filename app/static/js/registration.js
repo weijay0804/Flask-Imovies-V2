@@ -1,4 +1,4 @@
-var singUpBtn = document.querySelector('#singUp')
+var singUpBtn = document.querySelector('#signUp')
 
 
 singUpBtn.addEventListener('click', signUpcheck, false)
@@ -9,11 +9,19 @@ singUpBtn.addEventListener('click', signUpcheck, false)
 function signUpcheck() {
     var emailStr = document.querySelector('#email').value
     var passwordStr = document.querySelector('#password').value
+    var check_passwordStr = document.querySelector('#check_password').value
     var usernameStr = document.querySelector('#username').value
+
     if (emailStr.length == 0 | passwordStr.length == 0 | usernameStr.length == 0) {
         alert('資料不能為空')
         return false
     }
+
+    if (passwordStr !== check_passwordStr ) {
+        alert('密碼密須相同')
+        return false
+    }
+
     console.log(emailStr)
     var account = {}
     account.email = emailStr

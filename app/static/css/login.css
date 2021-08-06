@@ -3,11 +3,6 @@
     margin: auto;
 }
 
-.form_content {
-    margin-top: 10px;
-    padding: 10px;
-}
-
 .page-header {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -15,4 +10,12 @@
 
 .rbtn {
     margin-top: 10px;
+}
+
+.registration {
+    margin-top: 10px;
+}
+
+.registration a {
+    text-decoration: none;
 }

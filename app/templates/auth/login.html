@@ -12,37 +12,27 @@
 
 {% block content %} 
         <div class="page-header">
-            <h2> Log In</h2>
+            <h2> 登入 </h2>
         </div>
         <form action="form.html">
-            <!-- <label for="email">輸入email</label>
-            <input type="email" name="email" class="email" placeholder="請輸入信箱"><br>
-
-            <label for="username">使用者名稱</label>
-            <input type="text" name="username" class="username" placeholder="輸入使用者名稱"><br>
-
-            <label for="password">輸入密碼</label>
-            <input type="password" name="password" class="password" placeholder="請輸入密碼"><br>
-            <div id="btn">
-                <input type="button" value="註冊" class="singUp">
-                <input type="button" value="登入" class="logIn">
-            </div> -->
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="email" placeholder="請輸入信箱">
                 <label for="floatingInput">Email</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="username" class="form-control" id="username" placeholder="輸入使用者名稱">
-                <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
                 <input type="password" class="form-control" id="password" placeholder="請輸入密碼">
                 <label for="floatingPassword">Password</label>
             </div>
             <div class="rbtn">
-                <button type="button" class="btn btn-info" id="singUp">註冊</button>
+                <button type="button" class="btn btn-info" id="singUp">登入</button>
             </div>
         </form>
+
+        <div class="registration">
+            <p>
+                還沒有註冊嗎? <a href="{{ url_for('auth.registration') }}">點這裡註冊</a>
+            </p>
+        </div>
 
 {% endblock content %}
 
