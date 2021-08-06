@@ -5,7 +5,7 @@
 '''
 
 from app import db
-from flask import url_for
+from flask import url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -180,6 +180,15 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     '''使用者密碼處理區域結束'''
+
+    def save_session(self):
+        session['username'] = self.username
+        session['uid'] = self.id
+
+    @staticmethod
+    def remove_seesion():
+        session['username'] = ''
+        session['uid'] = ''
 
  
 

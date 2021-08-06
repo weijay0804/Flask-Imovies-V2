@@ -19,25 +19,11 @@ from ..models import User
 
 
 
-@auth.route('/login', methods = ['GET', 'POST'])
+@auth.route('/login', methods = ['GET'])
 def login():
     '''使用者登入視圖'''
 
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email = form.email.data).first()        #依表單email資料去資料庫撈取使用者
-
-        if user is not None and user.verify_password(form.password.data):   #如果使用者不是None和使用者密碼正確，就登入
-            login_user(user, form.remember_me.data)
-            next = request.args.get('next')                                 #之前想訪問的視圖涵式
-
-            if next is None or not next.startswith('/'):                    #確保next裡的url是相對url
-                next = url_for('main.index')
-
-            return redirect(next) 
-        flash('錯誤的使用者名稱或密碼')
-        
-    return render_template('auth/login.html', form = form)
+    return render_template('auth/login.html')
 
 
 @auth.route('/logout')

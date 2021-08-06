@@ -39,12 +39,3 @@ def auth_error():
     ''' 當身分驗證無效時，回傳訊息(使用 json 格式) '''
 
     return unauthorized('Invalid credentilas. ')
-
-
-# @api.before_request
-# @auth.login_required
-# def before_request():
-#     ''' 為藍圖中的路由都添加身分認證功能 '''
-
-#     if not g.current_user.is_anonymous and not g.current_user.confirmed:
-#         return forbidden('Unconfiremed account. ')
