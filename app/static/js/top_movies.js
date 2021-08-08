@@ -51,7 +51,11 @@ function print(dataset) {
                 <img src = '${data.image}' width=20%>
             </td>
 
-            <td class = 'movie_title'>${data.title} ${og_title}</td>
+            <td class = 'movie_title'>
+                <a href="./movies/${data.mid}">
+                ${data.title} ${og_title}
+                </a>
+            </td>
   
             <td class = 'movie_type'>${data.genre}</td>
 

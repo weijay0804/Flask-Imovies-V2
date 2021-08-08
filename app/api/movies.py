@@ -17,7 +17,12 @@ class Movies(Resource):
     def get(self):
         ''' 取得所有電影 '''
 
-        movies = Movies_mod.query.all()
+        if request.args.get('limit'):
+            movies = Movies_mod.query.limit(request.args.get('limit')).all()
+
+        else:
+            movies = Movies_mod.query.all()
+
         return jsonify({'movies' : [movie.to_json() for movie in movies]})
 
 class Movie(Resource):

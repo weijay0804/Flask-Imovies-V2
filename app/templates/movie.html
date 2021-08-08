@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    <div class="page-header">
+        <h2>movie - {{ movie.title }}</h2>
+    </div>
+
+    <div class="page">
+        
+        <div class="movie-image">
+            <img src="{{ movie.image }}">
+        </div>
+        <p>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              電影簡介
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              {{ movie.description}}
+            </div>
+          </div>
+        
+    </div>
+{% endblock content %}

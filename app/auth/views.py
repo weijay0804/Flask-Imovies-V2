@@ -35,7 +35,7 @@ def login():
         
         session['username'] = user.username
         session['uid'] = user.id
-        return jsonify({'message' : '登入成功', 'username' : user.username, 'uid' : user.id})
+        return jsonify({'message' : '登入成功', 'username' : user.username, 'uid' : user.id,})
 
     return render_template('auth/login.html')
 
