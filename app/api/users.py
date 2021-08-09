@@ -35,6 +35,7 @@ class Users(Resource):
         email = request.json.get('email')
         username = request.json.get('username')
         password = request.json.get('password')
+        print(request.headers)
 
         if User_mod.query.filter_by(email = email).first():
             return jsonify({'message' : 'email已被使用'})
@@ -45,6 +46,7 @@ class Users(Resource):
 
         db.session.add(user)
         db.session.commit()
+        
         return jsonify({'message' : '成功'})
 
 

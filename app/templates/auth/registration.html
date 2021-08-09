@@ -9,7 +9,7 @@
     <div class="page-header">
         <h2> 註冊 </h2>
     </div>
-    <form action="form.html">
+    <form action="/api/v1/users/">
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="email" placeholder="請輸入信箱">
             <label for="floatingInput">Email</label>
@@ -35,4 +35,6 @@
 
 {% block scripts %} 
     <script src="{{ url_for('static', filename = 'js/registration.js') }}"></script>
+
+
 {% endblock scripts %}

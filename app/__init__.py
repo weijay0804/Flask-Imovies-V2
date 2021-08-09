@@ -9,6 +9,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_jwt_extended import JWTManager
+from flask_wtf.csrf import CSRFProtect
 
 #----自訂函式----
 from config import config
@@ -19,6 +20,7 @@ db = SQLAlchemy()
 jwt = JWTManager()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+crsf = CSRFProtect()
 
 
 def create_app(config_name : str) -> Flask:
@@ -32,6 +34,7 @@ def create_app(config_name : str) -> Flask:
     login_manager.init_app(app)
     bootstrap.init_app(app)
     jwt.init_app(app)
+    crsf.init_app(app)
     
     # 註冊 main 藍圖
     from .main import main as main_blueprint
