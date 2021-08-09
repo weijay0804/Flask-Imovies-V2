@@ -27,7 +27,11 @@ def top_moives():
 def movie(id):
     ''' 特定電影頁面 '''
     movie = Movies.query.get_or_404(id)
-    
-    return render_template('movie.html', movie = movie)
+    movie_type = movie.genre.replace(',', ', ')
+    movie_start = movie.starts.replace(',', '、  ')
+    movie_director = movie.director.replace(',', '、  ')
+    movie_writers = movie.writers.replace(',', '、 ')
+    return render_template('movie.html', movie = movie, movie_type = movie_type, movie_start = movie_start,
+                        movie_director = movie_director, movie_writers = movie_writers)
 
     
