@@ -1,25 +1,36 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% block head %} 
+  {{ super() }}
+  <link href="{{ url_for('static', filename = 'css/movie.css') }}" rel="stylesheet">
+{% endblock head %}
 
 {% block content %}
     <div class="page-header">
-        <h2>movie - {{ movie.title }}</h2>
+
     </div>
 
     <div class="page">
         
-        <div class="movie-image">
+        <div class="movie-items">
+          <div class="movie-image">
             <img src="{{ movie.image }}">
-        </div>
-        <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              電影簡介
-            </button>
-          </p>
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-              {{ movie.description}}
-            </div>
           </div>
-        
+          <div class="items">
+            <p>
+              {{ movie.title }}
+              {% if movie.og_title %}
+              ({{ movie.og_title}})
+              {% endif %}
+            </p>
+            <p>上映日期: {{ movie.year }}</p>
+            <p>分級: {{ movie.grade }}</p>
+            <p>評分: {{ movie.rate }}</p>
+            <p>類型: {{ movie.genre }}</p>
+            <p>演員: {{ movie.starts }}</p>
+            <a href="https://www.imdb.com/title/{{ movie.imdb_id }}" target="_blank" class="IMDB">IMDB</a>
+          </div>
+        </div>
+
     </div>
 {% endblock content %}
