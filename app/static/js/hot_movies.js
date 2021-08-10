@@ -37,11 +37,9 @@ function print(dataset) {
                 ${rate}
                 </td> 
             `
-
         }
 
         
-
 
         newCard.className = 'infoCard'
 
@@ -60,15 +58,12 @@ function print(dataset) {
   
             <td class = 'movie_type'>${data.genre}</td>
 
-
             ${rate_html}
 
-
-            <td class = 'imdb_link'>
-                <a href = 'https://www.imdb.com/title/${data.imdb_id}' target='_blank'> IMdb </a>
+            <td class = 'add_btn'>
+                +
             </td>
-
-            `   
+        `   
 
         newCard.innerHTML = NewCardInfo
     })

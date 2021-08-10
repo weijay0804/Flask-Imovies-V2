@@ -64,11 +64,6 @@ function print(dataset) {
 
             ${rate_html}
 
-
-            <td class = 'imdb_link'>
-                <a href = 'https://www.imdb.com/title/${data.imdb_id}' target='_blank'> IMdb </a>
-            </td>
-
             `   
 
         newCard.innerHTML = NewCardInfo

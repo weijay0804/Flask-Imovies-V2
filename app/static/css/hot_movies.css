@@ -1,5 +1,5 @@
 .wrap {
-    width: 960px;
+    width: 1200px;
     margin: auto;
 }
 table {
@@ -21,20 +21,35 @@ table tbody tr:hover {
 }
 
 table tbody tr .movie_title {
-    width: 30%;
+    width: 20%;
 }
 
 
+
 table tbody tr .movie_image {
-    width: 25%;
+    width: 20%;
 }
 
 
 
 table tbody tr .movie_rate {
-    width: 20%;
+    width: 15%;
 }
 
 table tbody tr a {
     text-align: center;
+}
+
+table tbody tr .movie_type {
+    width: 20%;
+}
+
+
+#add_movie_btn {
+
+    text-align: center;
+    color: aquamarine;
+    background-color: bisque;
+    border-radius: 50%;
+
 }
