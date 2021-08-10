@@ -1,0 +1,20 @@
+<!--使用者登入頁面模板-->
+
+{% extends 'base.html' %} 
+{% import 'bootstrap/wtf.html' as wtf %} 
+
+{% block head %} 
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/login.css') }}" rel="stylesheet">
+{% endblock head %}
+
+{% block title %} Imovies - LogOut {% endblock title %} 
+
+{% block scripts %} 
+    <script>
+        alert('登出成功')
+        window.location = '/'
+        sessionStorage.removeItem('uid')
+    </script>
+{% endblock scripts %}
+

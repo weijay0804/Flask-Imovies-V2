@@ -45,8 +45,10 @@ function loginUpcheck() {
         var callbackData = JSON.parse(xhr.responseText)
         console.log(callbackData)
         var str = callbackData.message
-    
-        if (str == '登入失敗') {
+        var uid = callbackData.uid
+        sessionStorage.uid = uid // 將使用者 id 儲存到 session storage 中
+        console.log(uid)
+        if (str == false) {
             alert('登入失敗')
             emailStr = ''
         }

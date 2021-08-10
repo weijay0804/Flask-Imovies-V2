@@ -28,14 +28,14 @@ def login():
 
         user = User.query.filter_by(email = email).first()
 
-        if user is None:
-            return jsonify({'message' : '登入失敗'})
-        if not user.verify_password(password):
-            return jsonify({'message' : '登入失敗'})
+        if user is None or not user.verify_password(password):
+            return jsonify({'message' : False})
         
-        session['username'] = user.username
-        session['uid'] = user.id
-        return jsonify({'message' : '登入成功', 'username' : user.username, 'uid' : user.id,})
+        login_user(user)
+
+        print(user.username)
+
+        return jsonify({'message' : True, 'uid' : user.id})
 
     return render_template('auth/login.html')
 
@@ -48,7 +48,7 @@ def logout():
     logout_user()
     flash('你已經成功登出')
 
-    return redirect(url_for('main.index'))
+    return render_template('auth/logout.html')
 
 
 

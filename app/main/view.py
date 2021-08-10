@@ -4,9 +4,11 @@
 
 '''
 
-from app.models import Movies
+
+from app.models import Movies, User
 from app.api.movies import Movie
-from flask import render_template
+from flask import render_template, request
+from flask_login import login_required, current_user
 #----自訂函式----
 from . import main
 
@@ -17,6 +19,7 @@ def index():
 
 @main.route('/trend_movies')
 def trend_movies():
+    print(current_user)
     return render_template('hot_movies.html')
 
 @main.route('/top_movies')
@@ -34,4 +37,10 @@ def movie(id):
     return render_template('movie.html', movie = movie, movie_type = movie_type, movie_start = movie_start,
                         movie_director = movie_director, movie_writers = movie_writers)
 
-    
+
+@main.route('/user/<int:id>/movies')
+@login_required
+def user_movies(id):
+    ''' 使用者收藏電影頁面 '''
+    user = User.query.get_or_404(id)
+    return render_template('user_movies.html', user = user)

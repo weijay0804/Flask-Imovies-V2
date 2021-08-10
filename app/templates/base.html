@@ -31,13 +31,13 @@
             <div class="navbar-nav">
               <a class="nav-link" href="{{ url_for('main.trend_movies') }}">Trend Moives</a>
               <a class="nav-link" href="{{ url_for('main.top_moives') }}">TOP 250</a>
-
-              <a id="user_movies" class="nav-link" href="#" tabindex="-1" aria-disabled="true" style="display:none;">電影清單</a>
-              <a id="user_watched" class="nav-link" href="#" tabindex="-1" aria-disabled="true" style="display:none;">已觀看電影清單</a>
-              <a id="logout" class="nav-link" href="{{ url_for('auth.logout') }}" tabindex="-1" aria-disabled="true" style="display:none;">登出</a>
-
+              {% if  current_user.is_authenticated %}
+              <a id="user_movies" class="nav-link" href="{{ url_for('main.user_movies',  id = current_user.id) }}" tabindex="-1" aria-disabled="true">電影清單</a>
+              <a id="user_watched" class="nav-link" href="#" tabindex="-1" aria-disabled="true">已觀看電影清單</a>
+              <a id="logout" class="nav-link" href="{{ url_for('auth.logout') }}" tabindex="-1" aria-disabled="true">登出</a>
+              {% else %}
               <a id="login" class="nav-link" href="{{ url_for('auth.login') }}" tabindex="-1" aria-disabled="true">登入</a>
-
+              {% endif %}
             </div>
           </div>
         </div>

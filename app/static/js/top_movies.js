@@ -6,6 +6,8 @@ var dataurl = '/api/v1/top250/'
             var dataset = JSON.parse(this.responseText)
             console.log(dataset['movies'][0].title)
             print(dataset)
+            var uid = sessionStorage.uid
+            console.log(uid)
         }
 
 function print(dataset) {
