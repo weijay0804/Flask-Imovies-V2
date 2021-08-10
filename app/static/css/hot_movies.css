@@ -20,36 +20,38 @@ table tbody tr:hover {
     background-color: rgb(154, 156, 156);
 }
 
-table tbody tr .movie_title {
+table tbody tr .number {
+    width: 5%;
+}
+
+table tbody tr .movie-img {
     width: 20%;
 }
 
+table tbody tr .movie-title {
+    width: 25%;
+}
 
-
-table tbody tr .movie_image {
+table tbody tr .movie-type{
     width: 20%;
 }
 
-
-
-table tbody tr .movie_rate {
+table tbody tr .movie-rate{
     width: 15%;
 }
 
-table tbody tr a {
-    text-align: center;
-}
-
-table tbody tr .movie_type {
-    width: 20%;
+table tbody tr .add-btn {
+    width: 15%;
 }
 
 
-#add_movie_btn {
 
+/* TODO 美化按鈕圖案 */
+#movie-add {
+    font-size: small;
     text-align: center;
     color: aquamarine;
-    background-color: bisque;
+    background-color: rgb(76, 95, 94);
     border-radius: 50%;
 
 }

@@ -24,7 +24,7 @@ function print(dataset) {
         if (rate === null) {
             rate = ''
             rate_html = `
-                <td class = 'movie_rate'>
+                <td class = 'movierate'>
                 ${rate}
                 </td>    
             `
@@ -32,7 +32,7 @@ function print(dataset) {
 
         else {
             rate_html = `
-                <td class = 'movie_rate'>
+                <td class = 'movie-rate'>
                 <img src="/static/image/star.png" width="7%">
                 ${rate}
                 </td> 
@@ -47,21 +47,25 @@ function print(dataset) {
 
 
         let NewCardInfo = `
-            <td class = 'movie_image'>
+            <td class = 'number'>
+                ${index + 1}
+            </td>
+
+            <td class = 'movie-image'>
                 <img src = '${data.image}' width=20%>
             </td>
 
-            <td class = 'movie_title'>
+            <td class = 'movie-title'>
                 <a href="./movies/${data.mid}">
                 ${data.title} ${og_title}
             </td>
   
-            <td class = 'movie_type'>${data.genre}</td>
+            <td class = 'movie-type'>${data.genre}</td>
 
             ${rate_html}
 
-            <td class = 'add_btn'>
-                +
+            <td class = 'add-btn'>
+                <button type="button" class="btn btn-info" id="movie-add">+</button>
             </td>
         `   
 
