@@ -12,7 +12,8 @@ import jwt
 
 #----自訂函式----
 from .authentication import auth
-from ..models import User as User_mod
+from ..models import Movies, User as User_mod
+from ..models import Movies as Movies_mod
 from ..models import db
 
 
@@ -74,6 +75,24 @@ class User_Movies(Resource):
         movies = user.movies.all()
 
         return jsonify({'movies' : [movie.to_json() for movie in movies ]})
+    
+    @jwt_required()
+    def post(self, id):
+        ''' 使用者新增電影到電影清單 '''
+        mid = request.json.get('mid')
+        user = User_mod.query.get_or_404(id)
+
+        movie = Movies_mod.query.get_or_404(mid)
+
+        user.movies.append(movie)
+
+        db.session.commit()
+
+        print(user.movies.all())
+
+        return jsonify({'message' : True})
+
+        
 
 
 class User_Watched_Movies(Resource):

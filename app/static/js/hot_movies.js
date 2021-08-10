@@ -65,10 +65,51 @@ function print(dataset) {
             ${rate_html}
 
             <td class = 'add-btn'>
-                <button type="button" class="btn btn-info" id="movie-add">+</button>
+                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">+</button>
             </td>
         `   
 
         newCard.innerHTML = NewCardInfo
     })
+}
+
+var add_btn = document.querySelector("#movie-add")
+
+var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
+
+add_btn.addEventListener('click', add_movie, false)
+
+
+function add_movie(mid) {
+    var uid = sessionStorage.uid
+    var access_token = sessionStorage.access_token
+    alert(uid)
+    if (uid === undefined)
+    {
+        window.location = '/auth/login'
+        return false
+    }
+    
+    var movie_id = mid
+
+    var account = {}
+
+    account.mid = movie_id
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('post', `/api/v1/users/${uid}/movies/`)
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
+
+    var data = JSON.stringify(account)
+
+    xhr.send(data)
+
+    xhr.onload = function() {
+        var callback = JSON.parse(xhr.responseText)
+        console.log(callback)
+    }
 }
