@@ -1,4 +1,6 @@
-{% extends 'base_movies.html' %} 
+<!-- Top 250 電影頁面 -->
+
+{% extends 'basic/base_movies.html' %} 
 
 
 
@@ -12,6 +14,6 @@
 
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename = 'js/top_movies.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/main/top_movies.js') }}"></script>
 {% endblock scripts %}
 

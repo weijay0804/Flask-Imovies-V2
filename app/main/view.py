@@ -16,16 +16,16 @@ from . import main
 @main.route('/')
 def index():
     print(request.headers)
-    return render_template('index.html')
+    return render_template('main/index.html')
 
 @main.route('/trend_movies')
 def trend_movies():
     print(current_user)
-    return render_template('hot_movies.html')
+    return render_template('main/hot_movies.html')
 
 @main.route('/top_movies')
 def top_moives():
-    return render_template('top_movies.html')
+    return render_template('main/top_movies.html')
 
 @main.route('/movies/<int:id>')
 def movie(id):
@@ -35,7 +35,7 @@ def movie(id):
     movie_start = movie.starts.replace(',', '、  ')
     movie_director = movie.director.replace(',', '、  ')
     movie_writers = movie.writers.replace(',', '、 ')
-    return render_template('movie.html', movie = movie, movie_type = movie_type, movie_start = movie_start,
+    return render_template('main/movie.html', movie = movie, movie_type = movie_type, movie_start = movie_start,
                         movie_director = movie_director, movie_writers = movie_writers)
 
 
@@ -44,4 +44,4 @@ def movie(id):
 def user_movies(id):
     ''' 使用者收藏電影頁面 '''
     user = User.query.get_or_404(id)
-    return render_template('user_movies.html', user = user)
+    return render_template('user_movie/user_movies.html', user = user)

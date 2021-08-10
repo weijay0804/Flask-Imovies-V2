@@ -1,4 +1,4 @@
-{% extends 'base_movies.html' %} 
+{% extends 'basic/base_movies.html' %} 
 
 
 {% block title %} Imovies - Trend Movies {% endblock title %}
@@ -12,5 +12,5 @@
 
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename = 'js/hot_movies.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/main/hot_movies.js') }}"></script>
 {% endblock scripts %}

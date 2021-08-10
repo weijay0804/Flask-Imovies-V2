@@ -1,4 +1,6 @@
-{% extends 'base.html' %} 
+<!-- 熱門電影頁面 -->
+
+{% extends 'basic/base.html' %} 
 
 {% block head %} 
     {{ super() }}
@@ -8,6 +10,9 @@
 
 {% block content %}
     {% block page_header %}
+        <div class="page-header">
+            <h2> {{ user.username }} 的電影清單</h2>
+        </div>
     {% endblock page_header %}
 
         <table>
@@ -28,3 +33,7 @@
 
     </div>
 {% endblock content%}
+
+{% block scripts %} 
+    <script src="{{ url_for('static', filename = 'js/user_movie/user_movie.js') }}"></script>
+{% endblock scripts %}

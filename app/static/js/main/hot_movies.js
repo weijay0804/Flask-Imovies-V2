@@ -83,7 +83,6 @@ add_btn.addEventListener('click', add_movie, false)
 function add_movie(mid) {
     var uid = sessionStorage.uid
     var access_token = sessionStorage.access_token
-    alert(uid)
     if (uid === undefined)
     {
         window.location = '/auth/login'
@@ -110,6 +109,13 @@ function add_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(xhr.responseText)
-        console.log(callback)
+        if (callback.message)
+        {
+            alert('加入成功')
+        }
+        else
+        {
+            alert('加入失敗')
+        }
     }
 }
