@@ -46,8 +46,11 @@ function loginUpcheck() {
         console.log(callbackData)
         var str = callbackData.message
         var uid = callbackData.uid
+        var access_token = callbackData.access_token
+
+        // TODO 改成用 cookie 儲存
         sessionStorage.uid = uid // 將使用者 id 儲存到 session storage 中
-        console.log(uid)
+        sessionStorage.access_token = access_token
         if (str == false) {
             alert('登入失敗')
             emailStr = ''

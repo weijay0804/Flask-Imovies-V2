@@ -8,6 +8,7 @@
 
 from flask import render_template, redirect, request, url_for, flash,jsonify, session
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_jwt_extended import create_access_token
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 
 
@@ -33,9 +34,12 @@ def login():
         
         login_user(user)
 
-        print(user.username)
+        access_token = create_access_token(identity=user.username)
 
-        return jsonify({'message' : True, 'uid' : user.id})
+
+        print(request.headers)
+
+        return jsonify({'message' : True, 'uid' : user.id, 'access_token' : access_token})
 
     return render_template('auth/login.html')
 

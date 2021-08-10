@@ -1,6 +1,11 @@
-var dataurl = '/api/v1/trend/'
+var uid = sessionStorage.uid
+var access_token = sessionStorage.access_token
+
+var dataurl = `/api/v1/users/${uid}/movies`
         var xhr = new XMLHttpRequest()
         xhr.open('GET', dataurl, true)
+        xhr.setRequestHeader('Content-type', 'application/json')
+        xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
         xhr.send()
         xhr.onload = function(){
             var dataset = JSON.parse(this.responseText)

@@ -15,6 +15,7 @@ from . import main
 
 @main.route('/')
 def index():
+    print(request.headers)
     return render_template('index.html')
 
 @main.route('/trend_movies')
