@@ -57,9 +57,20 @@ function loginUpcheck() {
         }
     
         else {
-            alert('登入成功')
+            
             // history.back()
             window.location = '/'
+            alert('登入成功')
         }
     }
+}
+
+function alert(e) {
+    var content = document.querySelector('.flash-content')
+    var alert_html = `
+        <div class="alert alert-dark" role="alert">
+            ${e}
+        </div>
+    `
+    content.innerHTML = alert_html
 }

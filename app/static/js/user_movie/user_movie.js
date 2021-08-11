@@ -110,14 +110,16 @@ function add_movie(mid) {
         var callback = JSON.parse(this.responseText)
         if (callback.message)
         {
-            alert('加入到已觀看清單')
-
-           parent.location.reload()
-
+            alert('加入成功')
+            
+            parent.location.reload()
 
         }
     }  
 }
+
+
+
 
 function remove_movie(mid) {
     var movie_id = mid

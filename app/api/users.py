@@ -85,12 +85,23 @@ class User_Movies(Resource):
 
         movie = Movies_mod.query.get_or_404(mid)
 
+        user_movies = user.movies.all()
+
+        user_watched = user.watched_movies.all()
+
+        print(user_movies)
+
+        if movie in user_movies:
+            return jsonify({'status' : False, 'message' : 'exist'})
+
+        if movie in user_watched:
+            return jsonify({'stauts' : False, 'message' : 'exist_watched'})
+
         user.movies.append(movie)
 
         db.session.commit()
 
-
-        return jsonify({'message' : True})
+        return jsonify({'status' : True})
 
     @jwt_required()
     def delete(self, id):

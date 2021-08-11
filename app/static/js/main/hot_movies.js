@@ -109,12 +109,24 @@ function add_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(xhr.responseText)
-        if (callback.message)
+        if (callback.status)
         {
             alert('加入成功')
         }
-        else
+        else 
         {
+            if (callback.message == 'exist')
+            {
+                alert('已存在')
+                return false
+            }
+
+            else if (callback.message == 'exist_watched')
+            {
+                alert('已看過')
+                return false
+            }
+
             alert('加入失敗')
         }
     }
