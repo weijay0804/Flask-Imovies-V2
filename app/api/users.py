@@ -76,6 +76,7 @@ class User_Movies(Resource):
 
         return jsonify({'movies' : [movie.to_json() for movie in movies ]})
     
+    # TODO 檢查有沒有重複新增電影
     @jwt_required()
     def post(self, id):
         ''' 使用者新增電影到電影清單 '''
@@ -108,6 +109,7 @@ class User_Movies(Resource):
 class User_Watched_Movies(Resource):
     ''' 使用者已觀看電影資源 '''
 
+    @jwt_required()
     def get(self, id):
         ''' 取得使用者已經觀看的電影 '''
         user = User_mod.query.get_or_404(id)
@@ -115,6 +117,7 @@ class User_Watched_Movies(Resource):
     
         return jsonify({'movies' : [movie.to_json() for movie in movies ]})
 
+    @jwt_required()
     def post(self, id):
         ''' 新增電影到以觀看清單 '''
         mid = request.json.get('mid')
@@ -125,6 +128,19 @@ class User_Watched_Movies(Resource):
         user.movies.remove(movie)
         db.session.commit()
 
+
+        return jsonify({'message' : True})
+
+    @jwt_required()
+    def delete(self, id):
+        ''' 刪除使用者已觀看電影裡的電影 -> 退回到電影清單 '''
+        mid = request.json.get('mid')
+        user = User_mod.query.get_or_404(id)
+        movie = Movies_mod.query.get_or_404(mid)
+
+        user.movies.append(movie)
+        user.watched_movies.remove(movie)
+        db.session.commit()
 
         return jsonify({'message' : True})
 

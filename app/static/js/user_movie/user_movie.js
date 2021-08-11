@@ -77,7 +77,7 @@ function print(dataset) {
                 </button>
             </td>
         `   
-        // TODO ^ 新增刪除按鈕
+
 
         newCard.innerHTML = NewCardInfo
     })

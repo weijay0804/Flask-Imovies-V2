@@ -71,13 +71,46 @@ function print(dataset) {
 
     
             <td class = 'add-btn'>
-                <button  type="button" class="btn btn-info" id="movie-remove">
+                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove">
                     <img src = '../../static/image/remove.png'>
                 </button>
             </td>
         `   
-            // TODO 改成刪除按鈕，退回到電影清單
 
         newCard.innerHTML = NewCardInfo
     })
+}
+
+var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
+
+function remove_movie(mid) {
+    var movie_id = mid
+
+    var account = {}
+
+    account.mid = movie_id
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('delete', `/api/v1/users/${uid}/watched/`)
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
+
+    var data = JSON.stringify(account)
+
+    xhr.send(data)
+
+    xhr.onload = function() {
+        var callback = JSON.parse(this.responseText)
+        if (callback.message)
+        {
+            alert('刪除成功')
+
+           parent.location.reload()
+
+
+        }
+    }  
 }
