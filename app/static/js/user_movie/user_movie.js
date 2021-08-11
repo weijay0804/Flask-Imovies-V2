@@ -72,7 +72,7 @@ function print(dataset) {
                 <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">
                     <img src = '../../static/image/add-button.png'>
                 </button>
-                <button  type="button" class="btn btn-info" id="movie-remove">
+                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove">
                     <img src = '../../static/image/remove.png'>
                 </button>
             </td>
@@ -83,11 +83,9 @@ function print(dataset) {
     })
 }
 
-var add_btn = document.querySelector("#movie-add")
 
 var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
 
-add_btn.addEventListener('click', add_movie, false)
 
 function add_movie(mid) {
     var movie_id = mid
@@ -118,6 +116,37 @@ function add_movie(mid) {
 
 
         }
-    }
-    
+    }  
+}
+
+function remove_movie(mid) {
+    var movie_id = mid
+
+    var account = {}
+
+    account.mid = movie_id
+
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('delete', `/api/v1/users/${uid}/movies/`)
+
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
+
+    var data = JSON.stringify(account)
+
+    xhr.send(data)
+
+    xhr.onload = function() {
+        var callback = JSON.parse(this.responseText)
+        if (callback.message)
+        {
+            alert('刪除成功')
+
+           parent.location.reload()
+
+
+        }
+    }  
 }

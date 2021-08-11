@@ -75,11 +75,9 @@ function print(dataset) {
     })
 }
 
-var add_btn = document.querySelector("#movie-add")
 
 var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
 
-add_btn.addEventListener('click', add_movie, false)
 
 
 function add_movie(mid) {

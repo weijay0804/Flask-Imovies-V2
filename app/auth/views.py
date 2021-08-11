@@ -37,8 +37,6 @@ def login():
         access_token = create_access_token(identity=user.username)
 
 
-        print(request.headers)
-
         return jsonify({'message' : True, 'uid' : user.id, 'access_token' : access_token})
 
     return render_template('auth/login.html')

@@ -91,6 +91,16 @@ class User_Movies(Resource):
 
         return jsonify({'message' : True})
 
+    @jwt_required()
+    def delete(self, id):
+        ''' 刪除使用者電影清單中的電影 '''
+        mid = request.json.get('mid')
+        user = User_mod.query.get_or_404(id)
+        movie = Movies_mod.query.get_or_404(mid)
+        user.movies.remove(movie)
+        db.session.commit()
+
+        return jsonify({'message' : True})
 
         
 
