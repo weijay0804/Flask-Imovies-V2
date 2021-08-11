@@ -41,16 +41,16 @@ class Users(Resource):
         print(request.headers)
 
         if User_mod.query.filter_by(email = email).first():
-            return jsonify({'message' : 'email已被使用'})
+            return jsonify({'status' : False, 'message' : 'exist_email'})
         if User_mod.query.filter_by(username = username).first():
-            return jsonify({'message' : '使用者名稱已被使用'})
+            return jsonify({'status' : False, 'message' : 'exist_username'})
         
         user = User_mod(email = email, username = username, password = password)
 
         db.session.add(user)
         db.session.commit()
         
-        return jsonify({'message' : '成功'})
+        return jsonify({'status' : True})
 
 
 
@@ -76,7 +76,7 @@ class User_Movies(Resource):
 
         return jsonify({'movies' : [movie.to_json() for movie in movies ]})
     
-    # TODO 檢查有沒有重複新增電影
+    
     @jwt_required()
     def post(self, id):
         ''' 使用者新增電影到電影清單 '''
@@ -112,7 +112,7 @@ class User_Movies(Resource):
         user.movies.remove(movie)
         db.session.commit()
 
-        return jsonify({'message' : True})
+        return jsonify({'status' : True})
 
         
 
@@ -139,8 +139,7 @@ class User_Watched_Movies(Resource):
         user.movies.remove(movie)
         db.session.commit()
 
-
-        return jsonify({'message' : True})
+        return jsonify({'status' : True})
 
     @jwt_required()
     def delete(self, id):
@@ -149,11 +148,16 @@ class User_Watched_Movies(Resource):
         user = User_mod.query.get_or_404(id)
         movie = Movies_mod.query.get_or_404(mid)
 
+        print(user.movies.all())
         user.movies.append(movie)
+        print(user.movies.all())
+        print(user.watched_movies.all())
         user.watched_movies.remove(movie)
+        print(user.watched_movies.all())
+        
         db.session.commit()
 
-        return jsonify({'message' : True})
+        return jsonify({'status' : True})
 
 
 

@@ -50,17 +50,26 @@ function signUpcheck() {
     // 伺服器回傳資料
     xhr.onload = function() {
         var callbackData = JSON.parse(xhr.responseText)
-        var str = callbackData.message
-        if (str == 'email已被使用') {
-            alert('email已被使用')
-        }
-        else if (str == '使用者名稱已被使用') {
-            alert('使用者名稱已被使用')
-        }
-        else {
+
+        if (callbackData.status) {
             alert('註冊成功')
-            // history.back()
             window.location = '/'
+            
+        }
+        else 
+        {
+            if (callbackData.message == 'exist_username') 
+            {
+                alert('使用者名稱已被使用')
+                return false
+            }
+
+            if (callbackData.message == 'exist_password')
+            {
+                alert('email已被使用')
+                return false
+            }
+            
         }
     }
 

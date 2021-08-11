@@ -43,34 +43,26 @@ function loginUpcheck() {
     // 伺服器回傳資料
     xhr.onload = function() {
         var callbackData = JSON.parse(xhr.responseText)
-        console.log(callbackData)
-        var str = callbackData.message
+        
+        // 取出回傳資料
         var uid = callbackData.uid
         var access_token = callbackData.access_token
 
         // TODO 改成用 cookie 儲存
         sessionStorage.uid = uid // 將使用者 id 儲存到 session storage 中
         sessionStorage.access_token = access_token
-        if (str == false) {
-            alert('登入失敗')
-            emailStr = ''
-        }
-    
-        else {
-            
-            // history.back()
+
+        // 檢查回傳狀態
+        if (callbackData.status) {
             window.location = '/'
             alert('登入成功')
         }
+    
+        else 
+        {
+            alert('登入失敗')
+            // emailStr = ''  
+        } 
     }
 }
 
-function alert(e) {
-    var content = document.querySelector('.flash-content')
-    var alert_html = `
-        <div class="alert alert-dark" role="alert">
-            ${e}
-        </div>
-    `
-    content.innerHTML = alert_html
-}

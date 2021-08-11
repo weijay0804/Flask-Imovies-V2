@@ -104,13 +104,15 @@ function remove_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(this.responseText)
-        if (callback.message)
+        if (callback.status)
         {
             alert('刪除成功')
+            parent.location.reload()
+        }
 
-           parent.location.reload()
-
-
+        else 
+        {
+            alert('失敗')
         }
     }  
 }

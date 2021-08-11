@@ -108,12 +108,15 @@ function add_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(this.responseText)
-        if (callback.message)
+        if (callback.status)
         {
             alert('加入成功')
-            
             parent.location.reload()
+        }
 
+        else 
+        {
+            alert('加入失敗')
         }
     }  
 }
@@ -142,7 +145,7 @@ function remove_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(this.responseText)
-        if (callback.message)
+        if (callback.status)
         {
             alert('刪除成功')
 

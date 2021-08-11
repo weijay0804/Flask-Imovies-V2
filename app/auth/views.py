@@ -30,14 +30,14 @@ def login():
         user = User.query.filter_by(email = email).first()
 
         if user is None or not user.verify_password(password):
-            return jsonify({'message' : False})
+            return jsonify({'status' : False})
         
         login_user(user)
 
         access_token = create_access_token(identity=user.username)
 
 
-        return jsonify({'message' : True, 'uid' : user.id, 'access_token' : access_token})
+        return jsonify({'status' : True, 'uid' : user.id, 'access_token' : access_token})
 
     return render_template('auth/login.html')
 
