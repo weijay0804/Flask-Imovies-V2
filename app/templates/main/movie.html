@@ -4,6 +4,11 @@
 
 {% block head %} 
   {{ super() }}
+  <!-- 字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Raleway:wght@900&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <!-- 自訂 css -->
   <link href="{{ url_for('static', filename = 'css/movie.css') }}" rel="stylesheet">
 {% endblock head %}
 
@@ -32,7 +37,17 @@
           </p>
           <p>類型: {{ movie_type }}</p>
           <p>演員: {{ movie_start }}</p>
-          <a href="https://www.imdb.com/title/{{ movie.imdb_id }}" target="_blank" class="IMDB">IMDB</a>
+          <div class="add-btn">
+            <button onclick='add_movie("{{ movie.id }}")' type="button" class="btn btn-info" id="movie-add" title = '新增到電影清單'>
+              <img src = '../../static/image/plus.png'>
+            </button>
+          </div>
+          <div class="IMDB">
+            <button class="IMDB_btn">
+              <a href="https://www.imdb.com/title/{{ movie.imdb_id }}" target="_blank" class="IMDB">IMDb</a>
+            </button>
+          </div>
+
         </div>
       </div>
     </div>  
@@ -80,3 +95,7 @@
     
   </div>
 {% endblock content %}
+
+{% block scripts %}   
+  <script src="{{ url_for('static', filename = 'js/main/movie.js') }}"></script>
+{% endblock scripts %}

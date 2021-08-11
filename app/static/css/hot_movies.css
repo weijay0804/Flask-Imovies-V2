@@ -16,8 +16,17 @@ table {
     
 }
 
+table a {
+    text-decoration: none;
+    color: rgb(237, 242, 244);
+}
+
+table a:hover {
+    color: wheat;
+}
+
 table tbody tr:hover {
-    background-color: rgb(154, 156, 156);
+    background-color: rgb(52, 58, 64);
 }
 
 table tbody tr .number {
@@ -49,10 +58,10 @@ table tbody tr .add-btn {
 /* TODO 美化按鈕圖案 */
 .add-btn button  {
 
-    background-color: rgb(68, 67, 67);
+    background-color: rgb(43, 48, 53);
     border: none;
 }
 
 .add-btn button:hover{
-    background-color: rgb(154, 156, 156);
+    background-color: rgb(52, 58, 64);
 }

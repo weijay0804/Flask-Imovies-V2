@@ -71,7 +71,7 @@ function print(dataset) {
 
     
             <td class = 'add-btn'>
-                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove">
+                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove" title = '刪除電影到電影清單'>
                     <img src = '../../static/image/remove.png'>
                 </button>
             </td>

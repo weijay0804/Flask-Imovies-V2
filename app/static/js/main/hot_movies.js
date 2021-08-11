@@ -65,8 +65,8 @@ function print(dataset) {
             ${rate_html}
 
             <td class = 'add-btn'>
-                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">
-                    <img src = '../../static/image/add-button.png'>
+                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add" title = '新增到電影清單'>
+                    <img src = '../../static/image/plus.png'>
                 </button>
             </td>
         `   
