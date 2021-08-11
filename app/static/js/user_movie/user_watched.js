@@ -1,6 +1,11 @@
-var dataurl = '/api/v1/trend/'
+var uid = sessionStorage.uid
+var access_token = sessionStorage.access_token
+
+var dataurl = `/api/v1/users/${uid}/watched`
         var xhr = new XMLHttpRequest()
         xhr.open('GET', dataurl, true)
+        xhr.setRequestHeader('Content-type', 'application/json')
+        xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
         xhr.send()
         xhr.onload = function(){
             var dataset = JSON.parse(this.responseText)
@@ -64,60 +69,15 @@ function print(dataset) {
 
             ${rate_html}
 
+    
             <td class = 'add-btn'>
-                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">
-                    <img src = '../../static/image/add-button.png'>
+                <button  type="button" class="btn btn-info" id="movie-remove">
+                    <img src = '../../static/image/remove.png'>
                 </button>
             </td>
         `   
+            // TODO 改成刪除按鈕，退回到電影清單
 
         newCard.innerHTML = NewCardInfo
     })
-}
-
-var add_btn = document.querySelector("#movie-add")
-
-var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
-
-add_btn.addEventListener('click', add_movie, false)
-
-
-function add_movie(mid) {
-    var uid = sessionStorage.uid
-    var access_token = sessionStorage.access_token
-    if (uid === undefined)
-    {
-        window.location = '/auth/login'
-        return false
-    }
-    
-    var movie_id = mid
-
-    var account = {}
-
-    account.mid = movie_id
-
-    var xhr = new XMLHttpRequest()
-
-    xhr.open('post', `/api/v1/users/${uid}/movies/`)
-
-    xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
-
-    var data = JSON.stringify(account)
-
-    xhr.send(data)
-
-    xhr.onload = function() {
-        var callback = JSON.parse(xhr.responseText)
-        if (callback.message)
-        {
-            alert('加入成功')
-        }
-        else
-        {
-            alert('加入失敗')
-        }
-    }
 }

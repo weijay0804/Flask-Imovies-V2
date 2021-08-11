@@ -9,7 +9,6 @@ var dataurl = `/api/v1/users/${uid}/movies`
         xhr.send()
         xhr.onload = function(){
             var dataset = JSON.parse(this.responseText)
-            console.log(dataset['movies'][0].title)
             print(dataset)
         }
 
@@ -70,9 +69,15 @@ function print(dataset) {
             ${rate_html}
 
             <td class = 'add-btn'>
-                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">+</button>
+                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add">
+                    <img src = '../../static/image/add-button.png'>
+                </button>
+                <button  type="button" class="btn btn-info" id="movie-remove">
+                    <img src = '../../static/image/remove.png'>
+                </button>
             </td>
         `   
+        // TODO ^ 新增刪除按鈕
 
         newCard.innerHTML = NewCardInfo
     })
@@ -93,7 +98,7 @@ function add_movie(mid) {
 
     var xhr = new XMLHttpRequest()
 
-    xhr.open('post', `/api/v1/users/${uid}/movies/`)
+    xhr.open('post', `/api/v1/users/${uid}/watched/`)
 
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
@@ -104,7 +109,15 @@ function add_movie(mid) {
     xhr.send(data)
 
     xhr.onload = function() {
-        var callback = JSON.parse(xhr.responseText)
-        console.log(callback)
+        var callback = JSON.parse(this.responseText)
+        if (callback.message)
+        {
+            alert('加入到已觀看清單')
+
+           parent.location.reload()
+
+
+        }
     }
+    
 }

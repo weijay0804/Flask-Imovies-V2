@@ -1,0 +1,39 @@
+<!-- 熱門電影頁面 -->
+
+{% extends 'basic/base.html' %} 
+
+{% block head %} 
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/hot_movies.css') }}" rel="stylesheet">
+{% endblock head %}
+
+
+{% block content %}
+    {% block page_header %}
+        <div class="page-header">
+            <h2> {{ user.username }} 已經看過的電影 </h2>
+        </div>
+    {% endblock page_header %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>名稱</th>
+                    <th>分類</th>
+                    <th>評分</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="movies_contain">
+                
+            </tbody>
+        </table>
+
+    </div>
+{% endblock content%}
+
+{% block scripts %} 
+    <script src="{{ url_for('static', filename = 'js/user_movie/user_watched.js') }}"></script>
+{% endblock scripts %}

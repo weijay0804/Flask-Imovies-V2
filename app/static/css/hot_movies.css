@@ -47,11 +47,12 @@ table tbody tr .add-btn {
 
 
 /* TODO 美化按鈕圖案 */
-#movie-add {
-    font-size: small;
-    text-align: center;
-    color: aquamarine;
-    background-color: rgb(76, 95, 94);
-    border-radius: 50%;
+.add-btn button  {
 
+    background-color: rgb(68, 67, 67);
+    border: none;
+}
+
+.add-btn button:hover{
+    background-color: rgb(154, 156, 156);
 }

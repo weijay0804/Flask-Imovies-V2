@@ -88,9 +88,9 @@ class User_Movies(Resource):
 
         db.session.commit()
 
-        print(user.movies.all())
 
         return jsonify({'message' : True})
+
 
         
 
@@ -104,6 +104,20 @@ class User_Watched_Movies(Resource):
         movies = user.watched_movies.all()
     
         return jsonify({'movies' : [movie.to_json() for movie in movies ]})
+
+    def post(self, id):
+        ''' 新增電影到以觀看清單 '''
+        mid = request.json.get('mid')
+        user  = User_mod.query.get_or_404(id)
+        movie = Movies_mod.query.get_or_404(mid)
+
+        user.watched_movies.append(movie)
+        user.movies.remove(movie)
+        db.session.commit()
+
+
+        return jsonify({'message' : True})
+
 
 
 

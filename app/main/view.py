@@ -45,3 +45,10 @@ def user_movies(id):
     ''' 使用者收藏電影頁面 '''
     user = User.query.get_or_404(id)
     return render_template('user_movie/user_movies.html', user = user)
+
+@main.route('/user/<int:id>/watched')
+@login_required
+def user_watched(id):
+    ''' 使用者已觀看電影清單 '''
+    user = User.query.get_or_404(id)
+    return render_template('user_movie/user_watched.html', user = user)
