@@ -70,6 +70,12 @@ function signUpcheck() {
                 alert_user('email已被使用')
                 return false
             }
+
+            if (callbackData.message == 'format_error')
+            {
+                alert_user('email 格式錯誤')
+                return false
+            }
             
         }
     }

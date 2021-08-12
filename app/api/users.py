@@ -5,12 +5,14 @@
 '''
 
 
+import re
 from flask import jsonify, request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 import jwt
 
 #----自訂函式----
+from app import check_email
 from .authentication import auth
 from ..models import Movies, User as User_mod
 from ..models import Movies as Movies_mod
@@ -35,7 +37,11 @@ class Users(Resource):
     def post(self):
         ''' 新增使用者 '''
 
+        
         email = request.json.get('email')
+        if not check_email(email):
+            return jsonify({'status' : False, 'message' : 'format_error'})
+
         if User_mod.query.filter_by(email = email).first():
             return jsonify({'status' : False, 'message' : 'exist_email'})
 

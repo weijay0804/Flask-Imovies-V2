@@ -60,7 +60,13 @@ function loginUpcheck() {
         }
     
         else 
-        {
+        {   
+            if (callbackData.message == 'format_error')
+            {
+                alert_user('email 格式錯誤', 3000)
+                return false
+            }
+
             alert_user('登入失敗', 3000)
             // emailStr = ''  
         } 

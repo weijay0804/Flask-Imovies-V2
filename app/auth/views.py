@@ -13,6 +13,7 @@ from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 
 
 #-------自訂函式--------
+from app import check_email
 from . import auth
 from .. import db
 from ..models import User
@@ -25,6 +26,10 @@ def login():
     '''使用者登入視圖'''
     if request.method == 'POST':
         email = request.json.get('email')
+
+        if not check_email(email):
+            return jsonify({'status' : False, 'message' : 'format_error'})
+
         password = request.json.get('password')
 
         user = User.query.filter_by(email = email).first()

@@ -10,6 +10,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_jwt_extended import JWTManager
 from flask_wtf.csrf import CSRFProtect
+import re
 
 #----自訂函式----
 from config import config
@@ -50,5 +51,22 @@ def create_app(config_name : str) -> Flask:
     app.register_blueprint(api_blueprint, url_prefix = '/api/v1')
 
     return app
+
+def check_email(email) -> bool:
+    ''' 檢查 email 是否符規定 '''
+
+    # email 正圭表示式
+    emailRegex = re.compile(r'''(
+        [a-zA-Z0-9._%+-]+   # username
+        @                   # @ 符號
+        [a-zA-Z0-9.-]+      # domain name
+        (\.[a-zA-Z]{2,4})   # (.com or something)
+        )''', re.VERBOSE
+    )
+
+    return bool(emailRegex.findall(email))
+
+
+
 
 
