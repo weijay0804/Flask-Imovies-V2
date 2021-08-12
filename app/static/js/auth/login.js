@@ -54,15 +54,37 @@ function loginUpcheck() {
 
         // 檢查回傳狀態
         if (callbackData.status) {
-            window.location = '/'
-            alert('登入成功')
+            alert_user('登入成功', 500)
+            setTimeout("window.location = '/'", 500)
+            
         }
     
         else 
         {
-            alert('登入失敗')
+            alert_user('登入失敗', 3000)
             // emailStr = ''  
         } 
     }
+}
+
+function alert_user(e, t = 1000) {
+    let alert_block = document.querySelector('.flash-user')
+    let alert_html = `
+        <div class="alert alert-dark" role="alert">
+           ${e}
+        </div>
+        `
+    alert_block.innerHTML = alert_html
+
+    del_alert(t)
+}
+
+function del() {
+    let alert_block = document.querySelector('.flash-user')
+    alert_block.innerHTML = ''
+}
+
+function del_alert(t) {
+    setTimeout('del()', t)
 }
 

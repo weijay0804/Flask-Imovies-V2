@@ -110,23 +110,44 @@ function add_movie(mid) {
         var callback = JSON.parse(xhr.responseText)
         if (callback.status)
         {
-            alert('加入成功')
+            alert_movies('加入成功')
         }
         else 
         {
             if (callback.message == 'exist')
             {
-                alert('已存在')
+                alert_movies('已存在電影清單中', 2000)
                 return false
             }
 
             else if (callback.message == 'exist_watched')
             {
-                alert('已看過')
+                alert_movies('你已經看過這個電影', 2000)
                 return false
             }
 
-            alert('加入失敗')
+            alert_movies('加入失敗')
         }
     }
+}
+
+function alert_movies(e, t = 1000) {
+    let alert_block = document.querySelector('.flash-movies')
+    let alert_html = `
+        <div class="alert alert-dark" role="alert">
+           ${e}
+        </div>
+        `
+    alert_block.innerHTML = alert_html
+
+    del_alert(t)
+}
+
+function del() {
+    let alert_block = document.querySelector('.flash-movies')
+    alert_block.innerHTML = ''
+}
+
+function del_alert(t) {
+    setTimeout('del()', t)
 }

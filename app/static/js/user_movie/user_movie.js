@@ -110,13 +110,14 @@ function add_movie(mid) {
         var callback = JSON.parse(this.responseText)
         if (callback.status)
         {
-            alert('加入成功')
-            parent.location.reload()
+            alert_movies('加入成功')
+            setTimeout('parent.location.reload()', 500)
+            
         }
 
         else 
         {
-            alert('加入失敗')
+            alert_movies('加入失敗')
         }
     }  
 }
@@ -147,11 +148,30 @@ function remove_movie(mid) {
         var callback = JSON.parse(this.responseText)
         if (callback.status)
         {
-            alert('刪除成功')
-
-           parent.location.reload()
-
+            alert_movies('刪除成功')
+            setTimeout('parent.location.reload()', 500)
 
         }
     }  
+}
+
+function alert_movies(e, t = 1000) {
+    let alert_block = document.querySelector('.flash-movies')
+    let alert_html = `
+        <div class="alert alert-dark" role="alert">
+           ${e}
+        </div>
+        `
+    alert_block.innerHTML = alert_html
+
+    del_alert(t)
+}
+
+function del() {
+    let alert_block = document.querySelector('.flash-movies')
+    alert_block.innerHTML = ''
+}
+
+function del_alert(t) {
+    setTimeout('del()', t)
 }

@@ -2,3 +2,12 @@ body {
     background-color: rgb(43, 48, 53);
     color: rgb(173, 181, 189);
 }
+
+.wrap .flash-movies{
+    position: fixed;
+    right: 1em;
+    top: 15%;
+    width: 10em;
+    margin-top: -2.5em;
+    text-align: center;
+}

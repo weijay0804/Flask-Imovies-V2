@@ -16,12 +16,12 @@ function signUpcheck() {
 
     // 檢查輸入的資料服不符合規定
     if (emailStr.length == 0 | passwordStr.length == 0 | usernameStr.length == 0) {
-        alert('資料不能為空')
+        alert_user('資料不能為空')
         return false
     }
 
     if (passwordStr !== check_passwordStr ) {
-        alert('密碼密須相同')
+        alert_user('密碼密須相同')
         return false
     }
 
@@ -52,26 +52,47 @@ function signUpcheck() {
         var callbackData = JSON.parse(xhr.responseText)
 
         if (callbackData.status) {
-            alert('註冊成功')
-            window.location = '/'
+            alert_user('註冊成功', 500)
+            setTimeout("window.location = '/'", 500)
+            
             
         }
         else 
         {
             if (callbackData.message == 'exist_username') 
             {
-                alert('使用者名稱已被使用')
+                alert_user('使用者名稱已被使用')
                 return false
             }
 
-            if (callbackData.message == 'exist_password')
+            if (callbackData.message == 'exist_email')
             {
-                alert('email已被使用')
+                alert_user('email已被使用')
                 return false
             }
             
         }
     }
+}
 
+function alert_user(e, t = 1000) {
+    let alert_block = document.querySelector('.flash-user')
+    let alert_html = `
+        <div class="alert alert-dark" role="alert">
+           ${e}
+        </div>
+        `
+    alert_block.innerHTML = alert_html
+
+    del_alert(t)
+}
+
+function del() {
+    let alert_block = document.querySelector('.flash-user')
+    alert_block.innerHTML = ''
+}
+
+function del_alert(t) {
+    setTimeout('del()', t)
 }
 

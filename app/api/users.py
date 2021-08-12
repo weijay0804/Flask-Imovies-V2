@@ -36,14 +36,18 @@ class Users(Resource):
         ''' 新增使用者 '''
 
         email = request.json.get('email')
+        if User_mod.query.filter_by(email = email).first():
+            return jsonify({'status' : False, 'message' : 'exist_email'})
+
         username = request.json.get('username')
+        if User_mod.query.filter_by(username = username).first():
+            return jsonify({'status' : False, 'message' : 'exist_username'})
+        
+
         password = request.json.get('password')
         print(request.headers)
 
-        if User_mod.query.filter_by(email = email).first():
-            return jsonify({'status' : False, 'message' : 'exist_email'})
-        if User_mod.query.filter_by(username = username).first():
-            return jsonify({'status' : False, 'message' : 'exist_username'})
+        
         
         user = User_mod(email = email, username = username, password = password)
 
