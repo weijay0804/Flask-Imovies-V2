@@ -7,8 +7,9 @@
 
 
 from flask import render_template, redirect, request, url_for, flash,jsonify, session
+from flask_jwt_extended.view_decorators import jwt_required
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity, create_refresh_token
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 
 
@@ -19,6 +20,14 @@ from .. import db
 from ..models import User
 
 
+@auth.route('/refresh', methods = ['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    ''' 刷新 access token '''
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity, fresh=False)
+    
+    return jsonify({'access_token' : access_token})
 
 
 @auth.route('/login', methods = ['GET', 'POST'])
@@ -40,9 +49,10 @@ def login():
         login_user(user)
 
         access_token = create_access_token(identity=user.username)
+        refresh_token = create_refresh_token(identity=user.username)
 
 
-        return jsonify({'status' : True, 'uid' : user.id, 'access_token' : access_token})
+        return jsonify({'status' : True, 'uid' : user.id, 'access_token' : access_token, 'refresh_token' : refresh_token})
 
     return render_template('auth/login.html')
 

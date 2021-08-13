@@ -4,6 +4,7 @@ setTimeout("window.location = '/'", 500)
 // TODO 改成用 cookie
 sessionStorage.removeItem('uid')
 sessionStorage.removeItem('access_token')
+sessionStorage.removeItem('refresh_token')
 
 function alert_user(e, t = 1000) {
     let alert_block = document.querySelector('.flash-user')
