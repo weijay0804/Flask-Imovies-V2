@@ -37,6 +37,7 @@ function add_movie(mid) {
     // 解析回傳資料
     datas.onload = function()
     {
+        // TODO 自動再送出一次 post
         var check_reslut = check_user_movies(datas)
         // 檢查 token 有沒有過期
         if (check_reslut === 'expired')

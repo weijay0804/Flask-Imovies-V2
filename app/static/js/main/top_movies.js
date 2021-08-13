@@ -1,87 +1,24 @@
-var dataurl = '/api/v1/top250/'
-        var xhr = new XMLHttpRequest()
-        xhr.open('GET', dataurl, true)
-        xhr.send()
-        xhr.onload = function(){
-            var dataset = JSON.parse(this.responseText)
-            print(dataset)
-        }
+import { get_datas_no_auth, post_datas, update_access_token } from "../module/requests.js"
+import { print_movies } from "../module/rendering.js"
+import { header_datas } from "../module/header_datas.js"
+import { check_user_movies } from "../module/check.js"
 
-function print(dataset) {
-    dataset['movies'].forEach( (data, index) => {
-        let newCard = document.createElement('tr')
-        let og_title = data.original_title
-        
-        if (og_title === null) {
-            og_title = ''
-        }
-        else {
-            og_title = `(${data.original_title})`
-        }
-        let rate = data.rate
-        let rate_html = ``
-        if (rate === null) {
-            rate = ''
-            rate_html = `
-                <td class = 'movierate'>
-                ${rate}
-                </td>    
-            `
-        }
-
-        else {
-            rate_html = `
-                <td class = 'movie-rate'>
-                <img src="/static/image/star.png" width="7%">
-                ${rate}
-                </td> 
-            `
-        }
-
-        
-
-        newCard.className = 'infoCard'
-
-        document.querySelector('#movies_contain').appendChild(newCard)
+var datas = get_datas_no_auth('/api/v1/top250/') // 使用 get 取得電影資料
 
 
-        let NewCardInfo = `
-            <td class = 'number'>
-                ${index + 1}
-            </td>
-
-            <td class = 'movie-image'>
-                <img src = '${data.image}' width=20%>
-            </td>
-
-            <td class = 'movie-title'>
-                <a href="/movies/${data.mid}">
-                ${data.title} ${og_title}
-            </td>
-  
-            <td class = 'movie-type'>${data.genre}</td>
-
-            ${rate_html}
-
-            <td class = 'add-btn'>
-                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add" title = '新增到電影清單'>
-                    <img src = '../../static/image/plus.png'>
-                </button>
-            </td>
-        `   
-
-        newCard.innerHTML = NewCardInfo
-    })
+// 解析回傳的電影資料
+datas.onload = function(){
+    var dataset = JSON.parse(this.responseText)
+    console.log(dataset['movies'][0].title)
+    print_movies(dataset)
 }
 
-
-var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute('content') // 取得 csrf token
-
-
-
+// 將電影新增至使用者電影清單
 function add_movie(mid) {
+
+    header_datas.access_token = sessionStorage.access_token
+
     var uid = sessionStorage.uid
-    var access_token = sessionStorage.access_token
     if (uid === undefined)
     {
         window.location = '/auth/login'
@@ -90,64 +27,24 @@ function add_movie(mid) {
     
     var movie_id = mid
 
-    var account = {}
+    var send_datas = {}
 
-    account.mid = movie_id
+    send_datas.mid = movie_id
 
-    var xhr = new XMLHttpRequest()
+    // 使用 post 方式將電影資料送出
+    var datas = post_datas(`/api/v1/users/${uid}/movies/`, send_datas, header_datas)
 
-    xhr.open('post', `/api/v1/users/${uid}/movies/`)
-
-    xhr.setRequestHeader('Content-type', 'application/json')
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.setRequestHeader("Authorization", `Bearer ${access_token}`)
-
-    var data = JSON.stringify(account)
-
-    xhr.send(data)
-
-    xhr.onload = function() {
-        var callback = JSON.parse(xhr.responseText)
-        if (callback.status)
-        {
-            alert_movies('加入成功')
-        }
-        else 
-        {
-            if (callback.message == 'exist')
-            {
-                alert_movies('已存在電影清單中', 2000)
-                return false
-            }
-
-            else if (callback.message == 'exist_watched')
-            {
-                alert_movies('你已經看過這個電影', 2000)
-                return false
-            }
-
-            alert_movies('加入失敗')
+    // 解析回傳資料
+    datas.onload = function()
+    {   
+        // TODO 自動再送出一次 post
+        var check_reslut = check_user_movies(datas)
+        // 檢查 token 有沒有過期
+        if (check_reslut === 'expired')
+        {   
+            update_access_token(header_datas)
         }
     }
 }
 
-function alert_movies(e, t = 1000) {
-    let alert_block = document.querySelector('.flash-movies')
-    let alert_html = `
-        <div class="alert alert-dark" role="alert">
-           ${e}
-        </div>
-        `
-    alert_block.innerHTML = alert_html
-
-    del_alert(t)
-}
-
-function del() {
-    let alert_block = document.querySelector('.flash-movies')
-    alert_block.innerHTML = ''
-}
-
-function del_alert(t) {
-    setTimeout('del()', t)
-}
+window.add_movie = add_movie
