@@ -6,6 +6,7 @@
 
 from dotenv import load_dotenv
 import os
+import datetime
 
 load_dotenv()
 
@@ -15,6 +16,8 @@ class Config:
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=1)
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_AS_ASCII = False
 

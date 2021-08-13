@@ -83,6 +83,7 @@ var csrftoken = document.querySelector('meta[name = "csrf-token"]').getAttribute
 function add_movie(mid) {
     var uid = sessionStorage.uid
     var access_token = sessionStorage.access_token
+    var refresh_token = sessionStorage.refresh_token
     if (uid === undefined)
     {
         window.location = '/auth/login'
@@ -107,8 +108,35 @@ function add_movie(mid) {
 
     xhr.send(data)
 
+    
+
     xhr.onload = function() {
+        
         var callback = JSON.parse(xhr.responseText)
+        console.log(xhr.status)
+        
+        // TODO 新增 自動再發送請求
+        if (xhr.status === 401)
+        {
+            alert_movies('發生錯誤，請重新加入', 2000)
+            var xhr1 = new XMLHttpRequest()
+            xhr1.open('post', `/auth/refresh`)
+
+            xhr1.setRequestHeader('Content-type', 'application/json')
+            xhr1.setRequestHeader("X-CSRFToken", csrftoken)
+            xhr1.setRequestHeader("Authorization", `Bearer ${refresh_token}`)
+
+            xhr1.send()
+
+            xhr1.onload = function() {
+                var token = JSON.parse(xhr1.responseText)
+                console.log(token)
+                sessionStorage.access_token = token.access_token
+            }
+
+            return false
+        }
+
         if (callback.status)
         {
             alert_movies('加入成功')
