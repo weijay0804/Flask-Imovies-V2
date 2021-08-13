@@ -99,8 +99,6 @@ class User_Movies(Resource):
 
         user_watched = user.watched_movies.all()
 
-        print(user_movies)
-
         if movie in user_movies:
             return jsonify({'status' : False, 'message' : 'exist'})
 
