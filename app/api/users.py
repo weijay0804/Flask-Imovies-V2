@@ -104,11 +104,6 @@ class User_Movies(Resource):
             'count' : pagination.total,
             })
 
-        user = User_mod.query.get_or_404(id)
-        movies = user.movies.all()
-
-        return jsonify({'movies' : [movie.to_json() for movie in movies ]})
-    
     
     @jwt_required()
     def post(self, id):
@@ -154,10 +149,29 @@ class User_Watched_Movies(Resource):
     @jwt_required()
     def get(self, id):
         ''' 取得使用者已經觀看的電影 '''
+
         user = User_mod.query.get_or_404(id)
-        movies = user.watched_movies.all()
-    
-        return jsonify({'movies' : [movie.to_json() for movie in movies ]})
+        page = request.args.get('page', 1, type = int) # 取得 url 中的 page 參數，如果沒有則從 1 開始
+        # 從資料庫撈取資料 每次撈取 20 筆
+        pagination = user.watched_movies.paginate(page, per_page = current_app.config['IMOVIE_MOVIES_PER_PAGE'], error_out = False)
+        movies = pagination.items # 取得撈取出來的資料
+        prev = None # 上一頁
+
+        # 如果有上一頁
+        if pagination.has_prev:
+            prev = url_for('main.user_watched', page = page - 1, id = user.id)
+        
+        next = None # 下一頁
+        if pagination.has_next:
+            next = url_for('main.user_watched', page = page + 1, id = user.id)
+
+
+        return jsonify({
+            'movies' : [movie.to_json() for movie in movies],
+            'prev_url' : prev,
+            'next_url' : next,
+            'count' : pagination.total,
+            })
 
     @jwt_required()
     def post(self, id):
