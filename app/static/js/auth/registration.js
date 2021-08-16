@@ -1,3 +1,5 @@
+import { alert_users } from "../module/alert.js"
+
 var singUpBtn = document.querySelector('#signUp') // 選取登入按鈕
 
 
@@ -16,12 +18,12 @@ function signUpcheck() {
 
     // 檢查輸入的資料服不符合規定
     if (emailStr.length == 0 | passwordStr.length == 0 | usernameStr.length == 0) {
-        alert_user('資料不能為空')
+        alert_users('資料不能為空')
         return false
     }
 
     if (passwordStr !== check_passwordStr ) {
-        alert_user('密碼密須相同')
+        alert_users('密碼密須相同')
         return false
     }
 
@@ -52,7 +54,7 @@ function signUpcheck() {
         var callbackData = JSON.parse(xhr.responseText)
 
         if (callbackData.status) {
-            alert_user('註冊成功', 500)
+            alert_users('註冊成功', 500)
             setTimeout("window.location = '/'", 500)
             
             
@@ -61,19 +63,19 @@ function signUpcheck() {
         {
             if (callbackData.message == 'exist_username') 
             {
-                alert_user('使用者名稱已被使用')
+                alert_users('使用者名稱已被使用')
                 return false
             }
 
             if (callbackData.message == 'exist_email')
             {
-                alert_user('email已被使用')
+                alert_users('email已被使用')
                 return false
             }
 
             if (callbackData.message == 'format_error')
             {
-                alert_user('email 格式錯誤')
+                alert_users('email 格式錯誤')
                 return false
             }
             
@@ -81,24 +83,5 @@ function signUpcheck() {
     }
 }
 
-function alert_user(e, t = 1000) {
-    let alert_block = document.querySelector('.flash-user')
-    let alert_html = `
-        <div class="alert alert-dark" role="alert">
-           ${e}
-        </div>
-        `
-    alert_block.innerHTML = alert_html
 
-    del_alert(t)
-}
-
-function del() {
-    let alert_block = document.querySelector('.flash-user')
-    alert_block.innerHTML = ''
-}
-
-function del_alert(t) {
-    setTimeout('del()', t)
-}
 

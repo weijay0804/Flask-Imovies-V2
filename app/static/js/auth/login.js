@@ -1,3 +1,5 @@
+import { alert_users } from "../module/alert.js"
+
 var singInBtn = document.querySelector('#login-btn') // 選取登入按鈕
 
 
@@ -15,7 +17,7 @@ function loginUpcheck() {
 
     // 檢查輸入的資料服不符合規定
     if (emailStr.length == 0 | passwordStr.length == 0) {
-        alert('資料不能為空')
+        alert_users('資料不能為空')
         return false
     }
 
@@ -56,7 +58,7 @@ function loginUpcheck() {
 
         // 檢查回傳狀態
         if (callbackData.status) {
-            alert_user('登入成功', 500)
+            alert_users('登入成功', 500)
             setTimeout("window.location = '/'", 500)
             
         }
@@ -65,34 +67,14 @@ function loginUpcheck() {
         {   
             if (callbackData.message == 'format_error')
             {
-                alert_user('email 格式錯誤', 3000)
+                alert_users('email 格式錯誤', 3000)
                 return false
             }
 
-            alert_user('登入失敗', 3000)
+            alert_users('登入失敗', 3000)
             // emailStr = ''  
         } 
     }
 }
 
-function alert_user(e, t = 1000) {
-    let alert_block = document.querySelector('.flash-user')
-    let alert_html = `
-        <div class="alert alert-dark" role="alert">
-           ${e}
-        </div>
-        `
-    alert_block.innerHTML = alert_html
-
-    del_alert(t)
-}
-
-function del() {
-    let alert_block = document.querySelector('.flash-user')
-    alert_block.innerHTML = ''
-}
-
-function del_alert(t) {
-    setTimeout('del()', t)
-}
 
