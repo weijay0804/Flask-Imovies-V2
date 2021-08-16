@@ -22,11 +22,11 @@ export function get_datas_auth(url, header_datas)
 }
 
 // 使用 post 送出資料
-export function post_datas(url, send_datas, header_datas)
+export function post_delete_datas(method, url, send_datas, header_datas)
 {
     var xhr = new XMLHttpRequest()
 
-    xhr.open('post', url)
+    xhr.open(method, url)
 
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.setRequestHeader("X-CSRFToken", header_datas.csrftoken)

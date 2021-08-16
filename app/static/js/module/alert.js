@@ -21,3 +21,16 @@ function del_alert(t) {
             alert_block.innerHTML = ''
         }, 1000)
 }
+
+function alert_users(e, t = 1000)
+{
+    let alert_block = document.querySelector('.flash-movies')
+    let alert_html = `
+        <div class="alert alert-dark" role="alert">
+           ${e}
+        </div>
+        `
+    alert_block.innerHTML = alert_html
+
+    del_alert(t)
+}

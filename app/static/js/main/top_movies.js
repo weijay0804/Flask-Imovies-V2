@@ -1,4 +1,4 @@
-import { get_datas_no_auth, post_datas, update_access_token } from "../module/requests.js"
+import { get_datas_no_auth, post_delete_datas, update_access_token } from "../module/requests.js"
 import { print_movies } from "../module/rendering.js"
 import { header_datas } from "../module/header_datas.js"
 import { check_user_movies } from "../module/check.js"
@@ -32,12 +32,12 @@ function add_movie(mid) {
     send_datas.mid = movie_id
 
     // 使用 post 方式將電影資料送出
-    var datas = post_datas(`/api/v1/users/${uid}/movies/`, send_datas, header_datas)
+    var datas = post_delete_datas('post', `/api/v1/users/${uid}/movies/`, send_datas, header_datas)
 
     // 解析回傳資料
     datas.onload = function()
     {   
-        // TODO 自動再送出一次 post
+        // FIXME 重新再發送請求
         var check_reslut = check_user_movies(datas)
         // 檢查 token 有沒有過期
         if (check_reslut === 'expired')
