@@ -18,7 +18,7 @@ api = Api(api)
 api.add_resource(Movies, '/movies/')
 api.add_resource(Movie, '/movies/<int:id>/')
 api.add_resource(Trend_Movies, '/trend/')
-api.add_resource(Top_Movies, '/top250/')
+api.add_resource(Top_Movies, '/top/')
 
 
 # users url

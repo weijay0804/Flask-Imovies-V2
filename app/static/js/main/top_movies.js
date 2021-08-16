@@ -3,13 +3,20 @@ import { print_movies } from "../module/rendering.js"
 import { header_datas } from "../module/header_datas.js"
 import { check_user_movies } from "../module/check.js"
 
-var datas = get_datas_no_auth('/api/v1/top250/') // 使用 get 取得電影資料
-
+var url = window.location.href
+if (url.indexOf('page') != -1)
+{
+    var page = url.split('page=')[1]
+    var datas = get_datas_no_auth(`/api/v1/top/?page=${page}`) // 使用 get 取得電影資料
+}
+else
+{
+    var datas = get_datas_no_auth('/api/v1/top/') // 使用 get 取得電影資料
+}
 
 // 解析回傳的電影資料
 datas.onload = function(){
     var dataset = JSON.parse(this.responseText)
-    console.log(dataset['movies'][0].title)
     print_movies(dataset)
 }
 

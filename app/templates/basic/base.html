@@ -29,8 +29,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link" href="{{ url_for('main.trend_movies') }}">Trend Moives</a>
-              <a class="nav-link" href="{{ url_for('main.top_moives') }}">TOP 250</a>
+              <a class="nav-link" href="{{ url_for('main.trend_movies') }}">熱門電影</a>
+              <a class="nav-link" href="{{ url_for('main.top_moives') }}">排行榜電影</a>
               {% if  current_user.is_authenticated %}
               <a id="user_movies" class="nav-link" href="{{ url_for('main.user_movies',  id = current_user.id) }}" tabindex="-1" aria-disabled="true">電影清單</a>
               <a id="user_watched" class="nav-link" href="{{ url_for('main.user_watched', id = current_user.id) }}" tabindex="-1" aria-disabled="true">已觀看電影清單</a>

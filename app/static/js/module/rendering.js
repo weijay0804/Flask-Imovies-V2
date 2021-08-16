@@ -1,7 +1,7 @@
 // 渲染 html 函式庫
 
 // 渲染 trend 、 top 電影頁面
-export function print_movies(dataset)
+export function print_movies(dataset, type)
 {
     // 取得目前頁數 沒有的話就設為 1
     var current_url = window.location.href
@@ -22,7 +22,7 @@ export function print_movies(dataset)
     {
         var prev_link_css = ''
         var prev_link_html = `<a class="page-link" href="${dataset.prev_url}">&laquo;</a>`
-        var prev_html = `<li class="page-item" ><a class="page-link" href="/trend_movies?page=${page_number-1}">${page_number-1}</a></li>`
+        var prev_html = `<li class="page-item" ><a class="page-link" href="${dataset.prev_url}">${page_number-1}</a></li>`
     }
 
     else
@@ -37,7 +37,7 @@ export function print_movies(dataset)
     {
         var next_link_css = ''
         var next_link_html = `<a class="page-link" href="${dataset.next_url}">&raquo;</a>`
-        var next_html = `<li class="page-item" ><a class="page-link" href="/trend_movies?page=${page_number+1}">${page_number+1}</a></li>`
+        var next_html = `<li class="page-item" ><a class="page-link" href="${dataset.next_url}">${page_number+1}</a></li>`
     }
 
     else
@@ -55,7 +55,7 @@ export function print_movies(dataset)
                     ${prev_link_html}
                 </li>
                 ${prev_html}
-                <li class="page-item active"><a class="page-link" href="/trend_movies?page=${page_number}">${page_number}</a></li>
+                <li class="page-item active"><a class="page-link" href="${current_url}">${page_number}</a></li>
                 ${next_html}
                 <li class="page-item ${next_link_css}">
                    ${next_link_html}
