@@ -66,7 +66,7 @@ export function print_movies(dataset)
 }
 
 // 渲染 user movies watched movies
-export function print_user_movies(dataset)
+export function print_user_movies(dataset, type)
 {
     dataset['movies'].forEach( (data, index) => {
         let newCard = document.createElement('tr')
@@ -98,6 +98,31 @@ export function print_user_movies(dataset)
             `
         }
 
+        if (type == 'watched')
+        {
+            var btn_html = `
+            <td class = 'add-btn'>
+                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove" title = '刪除電影'>
+                    <img src = '../../static/image/remove.png'>
+                </button>
+            </td>
+            `
+        }
+
+        else if (type == 'user_movies')
+        {
+            var btn_html = `
+            <td class = 'add-btn'>
+                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add" title = '新增到已觀看電影'>
+                    <img src = '../../static/image/plus.png'>
+                </button>
+                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove" title = '刪除電影'>
+                    <img src = '../../static/image/remove.png'>
+                </button>
+            </td>
+            `
+        }
+
         
 
         newCard.className = 'infoCard'
@@ -123,14 +148,7 @@ export function print_user_movies(dataset)
 
             ${rate_html}
 
-            <td class = 'add-btn'>
-                <button onclick='add_movie(${data.mid})' type="button" class="btn btn-info" id="movie-add" title = '新增到已觀看電影'>
-                    <img src = '../../static/image/plus.png'>
-                </button>
-                <button onclick='remove_movie(${data.mid})' type="button" class="btn btn-info" id="movie-remove" title = '刪除電影'>
-                    <img src = '../../static/image/remove.png'>
-                </button>
-            </td>
+            ${btn_html}
         `   
 
 

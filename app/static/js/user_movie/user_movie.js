@@ -15,7 +15,7 @@ xhr.onload = function(){
         update_access_token(header_datas)
         return false
     }
-    print_user_movies(dataset)
+    print_user_movies(dataset, 'user_movies')
 }
 
 window.add_movie = add_movie
