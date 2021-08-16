@@ -19,6 +19,7 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=1)
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    IMOVIE_MOVIES_PER_PAGE = 20
     JSON_AS_ASCII = False
 
     @staticmethod

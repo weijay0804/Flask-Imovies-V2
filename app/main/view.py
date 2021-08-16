@@ -8,19 +8,17 @@
 from app.models import Movies, User
 from app.api.movies import Movie
 from flask import render_template, request
-from flask_login import login_required, current_user
+from flask_login import login_required
 #----自訂函式----
 from . import main
 
 
 @main.route('/')
 def index():
-    print(request.headers)
     return render_template('main/index.html')
 
 @main.route('/trend_movies')
 def trend_movies():
-    print(current_user)
     return render_template('main/hot_movies.html')
 
 @main.route('/top_movies')

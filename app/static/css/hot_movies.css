@@ -53,7 +53,13 @@ table tbody tr .add-btn {
     width: 15%;
 }
 
-
+.page {
+    width: 960px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
 /* TODO 美化按鈕圖案 */
 .add-btn button  {
