@@ -131,6 +131,68 @@ export function print_movies(dataset, type)
 // 渲染 user movies watched movies
 export function print_user_movies(dataset, type)
 {
+    // 取得目前頁數 沒有的話就設為 1
+    var current_url = window.location.href
+    if (current_url.indexOf('page') != -1)
+    {
+        var page_number = Number(current_url.split('page=')[1])
+    }
+    else
+    {
+        var page_number = 1
+    }
+
+    // 取得 div class = page
+    var page = document.querySelector('.page')
+
+    // 判斷是否有前一頁
+    if (dataset.prev_url != null)
+    {
+        var prev_link_css = ''
+        var prev_link_html = `<a class="page-link" href="${dataset.prev_url}">&laquo;</a>`
+        var prev_html = `<li class="page-item" ><a class="page-link" href="${dataset.prev_url}">${page_number-1}</a></li>`
+    }
+
+    else
+    {
+        var prev_link_css = 'disabled'
+        var prev_link_html = `<span class="page-link">&laquo;</span>`
+        var prev_html = '<li class="page-item"></li>'
+    }
+
+    // 判斷是否有下一頁
+    if (dataset.next_url != null)
+    {
+        var next_link_css = ''
+        var next_link_html = `<a class="page-link" href="${dataset.next_url}">&raquo;</a>`
+        var next_html = `<li class="page-item" ><a class="page-link" href="${dataset.next_url}">${page_number+1}</a></li>`
+    }
+
+    else
+    {
+        var next_link_css = 'disabled'
+        var next_link_html = `<span class="page-link">&raquo;</span>`
+        var next_html = '<li class="page-item"></li>'
+    }
+
+    // 渲染 html
+    let paginate_html = `
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item ${prev_link_css}">
+                    ${prev_link_html}
+                </li>
+                ${prev_html}
+                <li class="page-item active"><a class="page-link" href="${current_url}">${page_number}</a></li>
+                ${next_html}
+                <li class="page-item ${next_link_css}">
+                   ${next_link_html}
+                </li>
+            </ul>
+        </nav>
+    `
+    page.innerHTML = paginate_html
+    
     dataset['movies'].forEach( (data, index) => {
         let newCard = document.createElement('tr')
         let og_title = data.original_title

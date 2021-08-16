@@ -5,7 +5,16 @@ import { print_user_movies } from "../module/rendering.js"
 import { alert_movies } from "../module/alert.js"
 
 header_datas.access_token = sessionStorage.access_token
-var xhr = get_datas_auth(`/api/v1/users/${header_datas.uid}/movies`, header_datas)
+var url = window.location.href
+if (url.indexOf('page') != -1)
+{
+    var page = url.split('page=')[1]
+    var xhr = get_datas_auth(`/api/v1/users/${header_datas.uid}/movies?page=${page}`, header_datas) // 使用 get 取得電影資料
+}
+else
+{
+    var xhr = get_datas_auth(`/api/v1/users/${header_datas.uid}/movies`, header_datas) // 使用 get 取得電影資料
+}
 
 xhr.onload = function(){
     
