@@ -34,7 +34,6 @@ def create_app(config_name : str) -> Flask:
     db.init_app(app)
     login_manager.init_app(app)
     bootstrap.init_app(app)
-    # TODO 解決 token 過期問題
     jwt.init_app(app)
     crsf.init_app(app)
     

@@ -10,6 +10,7 @@ body {
 .page-header {
     margin-top: 10px;
     margin-bottom: 20px;
+    color: rgb(173, 181, 189);
 }
 
 .rbtn {
@@ -22,4 +23,8 @@ body {
 
 .registration a {
     text-decoration: none;
+}
+
+.registration p {
+    color: rgb(173, 181, 189);
 }
