@@ -5,3 +5,15 @@
     display: flex;
     justify-content: space-between;
 }
+
+#card-1 > .card-body > a{
+    float: right
+}
+
+#card-4 > .card-body > a{
+    float: right
+}
+
+#card-7 > .card-body > a{
+    float: right
+}

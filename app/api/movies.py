@@ -22,7 +22,7 @@ class Movies(Resource):
         if request.args.get('limit'):
             movies = Movies_mod.query.limit(request.args.get('limit')).all()
         elif request.args.get('random'):
-            movies = Movies_mod.query.order_by(func.rand()).limit(request.args.get('random')).all()
+            movies = Movies_mod.query.filter(func.length(Movies_mod.title) < 20).order_by(func.rand()).limit(request.args.get('random')).all()
         else:
             movies = Movies_mod.query.all()
 
