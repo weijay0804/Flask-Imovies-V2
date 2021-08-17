@@ -45,16 +45,6 @@ function loginUpcheck() {
     // 伺服器回傳資料
     xhr.onload = function() {
         var callbackData = JSON.parse(xhr.responseText)
-        
-        // 取出回傳資料
-        var uid = callbackData.uid
-        var access_token = callbackData.access_token
-        var refresh_token = callbackData.refresh_token
-
-        // TODO 改成用 cookie 儲存
-        sessionStorage.uid = uid // 將使用者 id 儲存到 session storage 中
-        sessionStorage.access_token = access_token
-        sessionStorage.refresh_token = refresh_token
 
         // 檢查回傳狀態
         if (callbackData.status) {

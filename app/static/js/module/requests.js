@@ -51,10 +51,5 @@ export function update_access_token(header_datas)
     xhr1.setRequestHeader("Authorization", `Bearer ${header_datas.refresh_token}`)
 
     xhr1.send()
-
-    xhr1.onload = function() {
-        var token = JSON.parse(xhr1.responseText)
-        sessionStorage.access_token = token.access_token
-    }
     return false
 }

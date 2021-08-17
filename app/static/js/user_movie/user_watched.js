@@ -4,7 +4,7 @@ import { header_datas } from "../module/header_datas.js"
 import { print_user_movies } from "../module/rendering.js"
 import { alert_movies } from "../module/alert.js"
 
-header_datas.access_token = sessionStorage.access_token
+// header_datas.access_token = sessionStorage.access_token
 
 var url = window.location.href
 if (url.indexOf('page') != -1)
@@ -21,9 +21,10 @@ else
 xhr.onload = function(){
     
     var dataset = JSON.parse(this.responseText)
-    if (xhr.status == 401) // FIXME 重新再發送請求
+    if (xhr.status == 401)
     {
         update_access_token(header_datas)
+        parent.location.reload() // FIXME 改成重新發送請求
         return false
     }
     print_user_movies(dataset ,'watched')
@@ -42,10 +43,11 @@ function remove_movie(mid) {
 
     xhr.onload = function() {
         var callback = JSON.parse(this.responseText)
-        if (xhr.status == 401) // FIXME 重新再發送請求
+        if (xhr.status == 401)
         {   
             alert_movies('登入逾時')
             update_access_token(header_datas)
+            parent.location.reload() // FIXME 改成重新發送請求
             return false
         }
         if (callback.status)

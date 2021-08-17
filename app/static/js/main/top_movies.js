@@ -23,9 +23,9 @@ datas.onload = function(){
 // 將電影新增至使用者電影清單
 function add_movie(mid) {
 
-    header_datas.access_token = sessionStorage.access_token
+    // header_datas.access_token = sessionStorage.access_token
 
-    var uid = sessionStorage.uid
+    var uid = header_datas.uid
     if (uid === undefined)
     {
         window.location = '/auth/login'
@@ -44,12 +44,12 @@ function add_movie(mid) {
     // 解析回傳資料
     datas.onload = function()
     {   
-        // FIXME 重新再發送請求
         var check_reslut = check_user_movies(datas)
         // 檢查 token 有沒有過期
         if (check_reslut === 'expired')
         {   
             update_access_token(header_datas)
+            parent.location.reload() // FIXME 改成重新發送請求
             return false
         }
     }
