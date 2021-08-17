@@ -31,11 +31,27 @@
             {% endif %}
           </p>
           <p>上映日期: {{ movie.year }}</p>
-          <p>分級: {{ movie.grade }}</p>
           <p>
-            評分: {{ movie.rate }}
+            {% if movie.grade %}
+            分級: {{ movie.grade }}
+            {% else %} 
+            分級: 無
+            {% endif %}
           </p>
-          <p>類型: {{ movie_type }}</p>
+          <p>
+            {% if movie.rate %}
+            評分: {{ movie.rate }}
+            {% else %} 
+            評分: 無
+            {% endif %}
+          </p>
+          <p>
+            {% if movie_type %}
+            類型: {{ movie_type }}
+            {% else %} 
+            類型: 無
+            {% endif %}
+          </p>
           <p>演員: {{ movie_start }}</p>
           <div class="add-btn">
             <button onclick='add_movie("{{ movie.id }}")' type="button" class="btn btn-info" id="movie-add" title = '新增到電影清單'>
