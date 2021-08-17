@@ -78,21 +78,11 @@ def registration():
 
 
 
-@auth.route('/change-password', methods = ['GET', 'POST'])
+@auth.route('/change-password', methods = ['GET'])
 @login_required
 def change_password():
-    form = ChangePasswordForm()
-    if form.validate_on_submit():
-        if current_user.verify_password(form.old_password.data):
-            current_user.password = form.password.data
-            db.session.add(current_user)
-            db.session.commit()
-            flash('您的密碼變更成功')
-            return redirect(url_for('main.index'))
-        else:
-            flash('密碼錯誤')
-    return render_template('auth/change_password.html', form = form)
 
+    return render_template('auth/change_password.html')
 
 
 

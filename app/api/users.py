@@ -51,10 +51,7 @@ class Users(Resource):
         
 
         password = request.json.get('password')
-        print(request.headers)
-
-        
-        
+ 
         user = User_mod(email = email, username = username, password = password)
 
         db.session.add(user)
@@ -71,7 +68,23 @@ class User(Resource):
         ''' 根據使用者 id 獲得使用者 '''
 
         user = User_mod.query.get_or_404(id)
+        print(user.password)
         return jsonify(user.to_json())
+   
+    @jwt_required()
+    def put(self, id):
+        ''' 更新使用者資料 '''
+        user = User_mod.query.get_or_404(id)
+
+        old_password = request.json.get('old_password')
+        if user is None or not user.verify_password(old_password):
+            return jsonify({'status' : False, 'message' : 'password_error'})
+        new_password = request.json.get('new_password')
+        user.password = new_password
+        db.session.commit()
+
+        return jsonify({'status' : True})
+
 
 
 class User_Movies(Resource):
