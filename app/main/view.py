@@ -6,7 +6,6 @@
 
 
 from app.models import Movies, User
-from app.api.movies import Movie
 from flask import render_template, request
 from flask_login import login_required
 #----自訂函式----

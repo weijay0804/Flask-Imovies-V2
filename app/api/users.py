@@ -5,15 +5,12 @@
 '''
 
 
-import re
 from flask import jsonify, request, url_for, current_app
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
-import jwt
 
 #----自訂函式----
-from app import check_email
-from .authentication import auth
+from imovies_module import check_email
 from ..models import Movies, User as User_mod
 from ..models import Movies as Movies_mod
 from ..models import db

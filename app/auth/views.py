@@ -6,17 +6,16 @@
 
 
 
-from flask import render_template, redirect, request, url_for, flash,jsonify, session, make_response
+from flask import render_template, request,  jsonify, make_response
 from flask_jwt_extended.view_decorators import jwt_required
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required
 from flask_jwt_extended import create_access_token, get_jwt_identity, create_refresh_token
-from .forms import LoginForm, RegistrationForm, ChangePasswordForm
+
 
 
 #-------自訂函式--------
-from app import check_email
+from imovies_module import check_email
 from . import auth
-from .. import db
 from ..models import User
 
 
@@ -66,12 +65,7 @@ def login():
         resp.set_cookie('access_token', value = access_token)
         resp.set_cookie('refresh_token', value = refresh_token)
 
-
-        
         return resp
-
-
-        return jsonify({'status' : True, 'uid' : user.id, 'access_token' : access_token, 'refresh_token' : refresh_token})
 
     return render_template('auth/login.html')
 

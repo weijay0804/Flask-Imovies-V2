@@ -4,9 +4,10 @@
 
 '''
 
-from typing import Dict, List
+from typing import Dict
 import json
 import os
+import re
 
 
 def open_file(file_name : str) -> Dict:
@@ -49,3 +50,17 @@ def save_file(file_name : str, datas : Dict) -> json:
     
     print('Done !')
     return None
+
+def check_email(email) -> bool:
+    ''' 檢查 email 是否符規定 '''
+
+    # email 正圭表示式
+    emailRegex = re.compile(r'''(
+        [a-zA-Z0-9._%+-]+   # username
+        @                   # @ 符號
+        [a-zA-Z0-9.-]+      # domain name
+        (\.[a-zA-Z]{2,4})   # (.com or something)
+        )''', re.VERBOSE
+    )
+
+    return bool(emailRegex.findall(email))
