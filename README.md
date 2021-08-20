@@ -1,4 +1,4 @@
 ## Imovies V2
 
-https://flask-imovies.herokuapp.com/
+https://imovies-v2.herokuapp.com/
 
