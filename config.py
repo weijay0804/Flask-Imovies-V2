@@ -47,7 +47,7 @@ class TestConfig(Config):
 class ProductionConfig(Config):
     # 替換 heroku 資料庫路徑
     if os.environ.get('DATABASE_URL'):
-        database_url = os.environ.get('DATABASE_URL').replace('postgres', 'postgresql')
+         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL').replace('postgres', 'postgresql')
     else:
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
