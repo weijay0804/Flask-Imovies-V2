@@ -21,6 +21,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     IMOVIE_MOVIES_PER_PAGE = 20
     JSON_AS_ASCII = False
+    SSL_REDIRECT = False
 
     @staticmethod
     def init_app(app):
@@ -49,6 +50,8 @@ class ProductionConfig(Config):
         database_url = os.environ.get('DATABASE_URL').replace('postgres', 'postgresql')
     else:
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+
+    SSL_REDIRECT = True if os.environ.get('DYNO') else False    # 當在 heroku 運行時會設為 True
 
 
 config = {
