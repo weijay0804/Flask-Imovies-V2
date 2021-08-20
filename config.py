@@ -36,12 +36,12 @@ class DevelopmentConfig(Config):
     DB_NAME = os.environ.get('DB_NAME')
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI') or f'mysql+pymysql://{DB_USER}:{DB_POSSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or f'mysql+pymysql://{DB_USER}:{DB_POSSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 
 class TestConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URI') or 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite://'
 
 
 class ProductionConfig(Config):
@@ -49,7 +49,7 @@ class ProductionConfig(Config):
     if os.environ.get('DATABASE_URL'):
         database_url = os.environ.get('DATABASE_URL').replace('postgres', 'postgresql')
     else:
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
     
 
