@@ -51,6 +51,17 @@ class ProductionConfig(Config):
     else:
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
+    
+
+
+class HerokuConfig(ProductionConfig):
+    @classmethod
+    def init_app(cls, app):
+        ProductionConfig.init_app(app)
+
+        from  werkzeug.middleware.proxy_fix import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
     SSL_REDIRECT = True if os.environ.get('DYNO') else False    # 當在 heroku 運行時會設為 True
 
 
@@ -59,4 +70,5 @@ config = {
     'testing' : TestConfig,
     'production' : ProductionConfig,
     'default' : DevelopmentConfig,
+    'heroku' : HerokuConfig
 }
