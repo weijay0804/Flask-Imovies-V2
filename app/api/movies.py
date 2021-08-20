@@ -22,7 +22,11 @@ class Movies(Resource):
         if request.args.get('limit'):
             movies = Movies_mod.query.limit(request.args.get('limit')).all()
         elif request.args.get('random'):
-            movies = Movies_mod.query.filter(func.length(Movies_mod.title) < 20).order_by(func.rand()).limit(request.args.get('random')).all()
+            database_url = current_app.config.get('SQLALCHEMY_DATABASE_URI')
+            if 'mysql' in database_url:
+                movies = Movies_mod.query.filter(func.length(Movies_mod.title) < 20).order_by(func.rand()).limit(request.args.get('random')).all()
+            else:
+                movies = Movies_mod.query.filter(func.length(Movies_mod.title) < 20).order_by(func.random()).limit(request.args.get('random')).all()
         else:
             movies = Movies_mod.query.all()
 
