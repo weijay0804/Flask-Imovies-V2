@@ -106,7 +106,7 @@ class Movies(db.Model):
                 time_length = data['movie_year_grade_time'][-1]
 
             # 依照電影標題撈取資料庫中的資料
-            movie = Movies.query.filter_by(title = data['movie_title']).first()
+            movie = Movies.query.filter_by(imdb_id = data['movie_id']).first()
 
             # 如果電影不在資料庫中，則存入資料庫
             if movie is None:
