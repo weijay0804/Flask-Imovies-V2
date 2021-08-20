@@ -8,6 +8,7 @@ from app import db
 from flask import url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 
 #----自訂函式----
@@ -115,30 +116,30 @@ class Movies(db.Model):
                                 genre = ','.join(data['movie_type']), description = data['movie_description'],
                                 director = ','.join(data['director']), writers = ','.join(data['writers']),
                                 starts = ','.join(data['start']), image = data['movie_img'],
-                                crawler_time = data['time'], source = 'top' if movies_source == 'top' else 'hot')
+                                crawler_time = datetime.strptime(data['time'], "%Y-%m-%d") , source = 'top' if movies_source == 'top' else 'hot')
                    
                 db.session.add(movie)
 
             # 如果電影已經存在資料庫並且標籤為 top 並且輸入資料為 top 則更新爬取時間
             elif movie.source == 'top' and movies_source == 'top':
-                movie.crawler_time = data['time']
+                movie.crawler_time = datetime.strptime(data['time'], "%Y-%m-%d")
                 db.session.add(movie)
 
             # 如果電影已經存在資料庫且標籤為 hot 並且輸入資料為 top 則跟新標籤為 top_hot
             elif movie.source == 'hot' and movies_source == 'top':
                 movie.source = 'top_hot'
-                movie.crawler_time = data['time']
+                movie.crawler_time = datetime.strptime(data['time'], "%Y-%m-%d")
                 db.session.add(movie)
 
              # 如果電影已經存在資料庫並且標籤為 hot 並且輸入資料為 hot 則更新爬取時間
             elif movie.source == 'hot' and movies_source == 'hot':
-                movie.crawler_time = data['time']
+                movie.crawler_time = datetime.strptime(data['time'], "%Y-%m-%d")
                 db.session.add(movie)
 
             # 如果電影已經存在資料庫且標籤為 top 並且輸入資料為 hot 則跟新標籤為 top_hot
             elif movie.source == 'top' and movies_source == 'hot':
                 movie.source = 'top_hot'
-                movie.crawler_time = data['time']
+                movie.crawler_time = datetime.strptime(data['time'], "%Y-%m-%d")
                 db.session.add(movie)
 
         db.session.commit()
