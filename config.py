@@ -16,7 +16,7 @@ class Config:
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
-    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=1)
+    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=15)
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     IMOVIE_MOVIES_PER_PAGE = 20

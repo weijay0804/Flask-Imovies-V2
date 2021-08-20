@@ -10,7 +10,7 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 
 #----自訂函式----
-from imovies_module import check_email
+from ..imovies_module import check_email
 from ..models import Movies, User as User_mod
 from ..models import Movies as Movies_mod
 from ..models import db

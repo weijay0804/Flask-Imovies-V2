@@ -14,7 +14,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, create_ref
 
 
 #-------自訂函式--------
-from imovies_module import check_email
+from ..imovies_module import check_email
 from . import auth
 from ..models import User
 
