@@ -36,7 +36,7 @@ class DevelopmentConfig(Config):
     DB_NAME = os.environ.get('DB_NAME')
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or f'mysql+pymysql://{DB_USER}:{DB_POSSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{DB_USER}:{DB_POSSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 
 class TestConfig(Config):
