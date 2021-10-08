@@ -82,7 +82,7 @@ class Top_Movies(Resource):
 
         page = request.args.get('page', 1, type = int) # 取得 url 中的 page 參數，如果沒有則從 1 開始
         # 從資料庫撈取資料 每次撈取 20 筆
-        pagination = Movies_mod.query.filter(( Movies_mod.source == 'top' ) | ( Movies_mod.source == 'top_hot' )).paginate(page, per_page = current_app.config['IMOVIE_MOVIES_PER_PAGE'], error_out = False)
+        pagination = Movies_mod.query.filter(( Movies_mod.source == 'top' ) | ( Movies_mod.source == 'top_hot' )).order_by(Movies_mod.rate.desc()).paginate(page, per_page = current_app.config['IMOVIE_MOVIES_PER_PAGE'], error_out = False)
         movies = pagination.items # 取得撈取出來的資料
         prev = None # 上一頁
 
